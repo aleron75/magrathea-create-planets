@@ -87,6 +87,17 @@ Ready to work. What would you like to do first?
 
 Include a reminder that they can update `project/{ISSUE}/state.md` with current focus and progress log as they work.
 
+## 7. When the User Describes the First Task
+
+**Do not start implementing.** When the user tells you what they want done:
+
+1. Research the relevant code (read files, explore the codebase)
+2. Write a short proposed approach: what you plan to change, where, and how
+3. Ask: "Does this approach work for you?"
+4. Wait for explicit confirmation before touching any files
+
+The user describing a task is **not** approval to implement it.
+
 ---
 
 **Tip**: Run `/issue` anytime to resume work on any issue—`state.md` will be automatically loaded.

@@ -118,6 +118,7 @@ Claude updates `project/information.md` with anything useful for future issues â
 
 ## Tips
 
+- **Claude proposes before it acts.** When you describe a task, Claude researches the code, writes a short approach, and waits for your go-ahead. Describing a task is not approval to implement it â€” this prevents unwanted changes and keeps you in control.
 - **Update `state.md` often.** At the end of a session, ask Claude: *"Update the state with what we did today."* Your future self will thank you.
 - **`information.md` is gold.** When closing an issue, ask Claude: *"What should we add to information.md from this work?"*
 - **Issue numbers are for humans.** `/issue 3` is easier to type than `/issue 003-feat-dark-mode-toggle`. Both work.

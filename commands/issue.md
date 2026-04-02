@@ -91,7 +91,18 @@ The structured context summary from Step 2 serves as the confirmation. Follow it
 What would you like to do?
 ```
 
-## 5. Guide During Work
+## 5. When the User Describes a Task
+
+**Do not start implementing.** When the user tells you what they want done:
+
+1. Research the relevant code (read files, explore the codebase)
+2. Write a short proposed approach: what you plan to change, where, and how
+3. Ask: "Does this approach work for you?"
+4. Wait for explicit confirmation before touching any files
+
+The user describing a task is **not** approval to implement it.
+
+## 6. Guide During Work
 
 As you work on this issue:
 
@@ -102,7 +113,7 @@ As you work on this issue:
   - Current focus (what you're working on now)
   - Progress log (summary of work completed, blockers, decisions made)
 
-## 6. When Issue is Complete
+## 7. When Issue is Complete
 
 Before closing the issue, update `project/information.md` with:
 

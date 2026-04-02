@@ -14,6 +14,8 @@ This skill set teaches Claude Code how to manage structured development work usi
 
 When you invoke a command, Claude Code reads the corresponding markdown file from `.claude/commands/` and follows the instructions inside it. No plugin, no extension — just markdown instructions that tell Claude what to do.
 
+A key behavior built into the commands: **Claude proposes before it acts.** When you describe a task, Claude researches the code, writes a short proposed approach, and waits for your explicit confirmation before making any changes. The description is not the approval.
+
 ## Project Structure Required
 
 ```
