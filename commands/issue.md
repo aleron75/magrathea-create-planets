@@ -27,9 +27,28 @@ You are starting or resuming work on an issue. Follow these steps:
 
 ## 2. Load Context
 
-- Read `project/information.md` if it exists—this contains cross-issue project knowledge.
-- Read `project/{ISSUE}/state.md` if it exists—this is your scratchpad showing where you left off.
-- Summarize what you found to orient the user.
+Read the following files in order — do not skip any that exist:
+
+1. `project/MEMORY.md` — project-specific entry point or conventions (if present)
+2. `project/information.md` — cross-issue knowledge base: patterns, decisions, lessons learned
+3. `project/{ISSUE}/state.md` — current focus and progress log for this issue
+4. `project/{ISSUE}/planning/*.md` — any existing plans (note titles)
+5. `project/{ISSUE}/tasks/*.md` — any pending task lists
+
+Then output a structured context summary before asking what to do:
+
+```
+Issue: {ISSUE}
+Status: {status from state.md, or "New" if just created}
+Last worked on: {date from state.md, or today if new}
+
+Last focus: {current focus section from state.md, or "Not started"}
+Last action: {most recent progress log entry, or "None"}
+
+Pending tasks: {list open tasks, or "None"}
+```
+
+This summary is mandatory — it confirms context was loaded and orients both you and the user.
 
 ## 3. Bootstrap Directory Structure (if new)
 
@@ -66,14 +85,11 @@ For example, if creating issue `007-feat-new-feature`, the header would be `# St
 
 ## 4. Confirm to User
 
-Output a brief summary:
+The structured context summary from Step 2 serves as the confirmation. Follow it with:
 
 ```
-Ready to work on issue: {ISSUE}
-State loaded. What would you like to do?
+What would you like to do?
 ```
-
-Include a reminder of how to update state during the session (see step 6).
 
 ## 5. Guide During Work
 

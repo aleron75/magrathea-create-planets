@@ -12,7 +12,16 @@ Ask the user: **What does this issue need to accomplish?** (description of the w
 
 Wait for their response.
 
-## 2. Generate Title and Slug
+## 2. Load Project Context
+
+Before generating anything, read:
+
+1. `project/MEMORY.md` — project-specific conventions (if present)
+2. `project/information.md` — cross-issue knowledge base (if present)
+
+This ensures the new issue title, slug, and initial state reflect established project conventions and avoids duplicating work already done.
+
+## 3. Generate Title and Slug
 
 Based on the description provided:
 - Generate a **concise title** (3-5 words)
@@ -27,7 +36,7 @@ Show the user the generated **title** and **slug**, and ask for confirmation: "I
 
 Wait for their response and adjust if needed.
 
-## 3. Determine Issue Number
+## 4. Determine Issue Number
 
 - Scan `project/` directory for existing directories matching the pattern `^\d{3}-` (e.g., `001-`, `002-`, etc.)
 - Find the highest number N
@@ -35,7 +44,7 @@ Wait for their response and adjust if needed.
 - Construct full issue directory name: `{NNN}-{slug}` (e.g., `007-feat-new-feature`)
 - Use this as `{ISSUE}`
 
-## 4. Create Directory Structure
+## 5. Create Directory Structure
 
 Create the following structure for `project/{ISSUE}/`:
 
@@ -66,7 +75,7 @@ Create `project/{ISSUE}/state.md` with this content (replacing {ISSUE} with the 
 
 If `project/information.md` does not exist, create it as an empty file.
 
-## 5. Confirm to User
+## 6. Confirm to User
 
 Output a brief summary:
 
