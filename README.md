@@ -12,7 +12,7 @@ This workflow fixes that by giving Claude a **filing cabinet** — a `project/` 
 
 ---
 
-## The Three Commands
+## The Four Commands
 
 Think of these like sticky notes on your desk, except Claude can read them.
 
@@ -28,13 +28,19 @@ Think of these like sticky notes on your desk, except Claude can read them.
 
 > "I have a new thing I want to track."
 
-Claude asks what you want to build/fix/investigate, generates a title and slug for you to confirm, then creates the folder structure automatically. You start with a clean slate.
+Claude asks whether you're planning multiple issues or starting work immediately, then generates a title and slug for you to confirm. In "start working" mode it flows directly into the issue workflow.
 
 ### `/list-issues`
 
 > "What are we working on again?"
 
-Shows a table of all issues, their status (In Progress / Completed), and when they were started. Quick orientation at the start of a session.
+Shows all issues as a kanban board grouped by status (Closed → Complete → In Review → Todo → In Progress), with the most actionable work closest to your prompt. Complete issues are capped at 3 most recent to keep the view focused.
+
+### `/retro`
+
+> "Let's step back and reflect."
+
+Reads all issue data and previous retros, surfaces patterns and open threads, then facilitates an open conversation — no guided questions, you take it where it needs to go. Action items automatically become tracked issues. Produces a shareable summary for your team or community.
 
 ---
 

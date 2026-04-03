@@ -8,7 +8,8 @@ This skill set teaches Claude Code how to manage structured development work usi
 |---------|------|--------------|
 | `/issue [name-or-number]` | `commands/issue.md` | Start or resume work on an issue |
 | `/new-issue` | `commands/new-issue.md` | Interactively create a new issue |
-| `/list-issues` | `commands/list-issues.md` | Show all issues with status |
+| `/list-issues` | `commands/list-issues.md` | Show all issues as a kanban board |
+| `/retro` | `commands/retro.md` | Run an open retrospective across all issues |
 
 ## How Claude Uses This
 
