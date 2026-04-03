@@ -6,13 +6,22 @@ argument-hint: ""
 
 You are creating a new issue. Follow these steps:
 
-## 1. Gather Issue Details
+## 1. Set Mode
+
+First, ask the user:
+
+> "Are you planning to create **multiple issues** (planning session), or do you want to **start working** on this one right away?"
+
+- **Multiple issues** — after each issue is created, ask "Describe the next issue, or say `done` to finish."
+- **Start working** — after creating the issue, automatically continue into the `/issue` workflow (from Step 4: Load Context onward)
+
+## 2. Gather Issue Details
 
 Ask the user: **What does this issue need to accomplish?** (description of the work, context, goals)
 
 Wait for their response.
 
-## 2. Load Project Context
+## 3. Load Project Context
 
 Before generating anything, read:
 
@@ -21,7 +30,7 @@ Before generating anything, read:
 
 This ensures the new issue title, slug, and initial state reflect established project conventions and avoids duplicating work already done.
 
-## 3. Generate Title and Slug
+## 4. Generate Title and Slug
 
 Based on the description provided:
 - Generate a **concise title** (3-5 words)
@@ -36,7 +45,7 @@ Show the user the generated **title** and **slug**, and ask for confirmation: "I
 
 Wait for their response and adjust if needed.
 
-## 4. Determine Issue Number
+## 5. Determine Issue Number
 
 - Scan `project/` directory for existing directories matching the pattern `^\d{3}-` (e.g., `001-`, `002-`, etc.)
 - Find the highest number N
@@ -44,7 +53,7 @@ Wait for their response and adjust if needed.
 - Construct full issue directory name: `{NNN}-{slug}` (e.g., `007-feat-new-feature`)
 - Use this as `{ISSUE}`
 
-## 5. Create Directory Structure
+## 6. Create Directory Structure
 
 Create the following structure for `project/{ISSUE}/`:
 
@@ -52,21 +61,27 @@ Create the following structure for `project/{ISSUE}/`:
 project/{ISSUE}/
   planning/          (create with .gitkeep)
   research/          (create with .gitkeep)
-  tasks/             (create with .gitkeep)
   state.md           (create with initial content)
 ```
 
-Create `project/{ISSUE}/state.md` with this content (replacing {ISSUE} with the full directory name and {DATE} with today's date):
+Valid status values: `Todo`, `In Progress`, `In Review`, `Complete`, `Closed`
+
+Create `project/{ISSUE}/state.md` with this content (replacing {ISSUE} with the full directory name, {TITLE} with the confirmed human-readable title, and {DATE} with today's date):
 
 ```markdown
-# State: {ISSUE}
+# {TITLE}
 
+**Issue**: {ISSUE}
 **Started**: {DATE}
-**Status**: In Progress
+**Status**: Todo
 
 ## Current Focus
 
 (Nothing yet)
+
+## Tasks
+
+(No tasks yet)
 
 ## Progress Log
 
@@ -75,28 +90,18 @@ Create `project/{ISSUE}/state.md` with this content (replacing {ISSUE} with the 
 
 If `project/information.md` does not exist, create it as an empty file.
 
-## 6. Confirm to User
+## 7. Confirm to User
 
 Output a brief summary:
 
 ```
 ✓ Created issue: {ISSUE}
-
-Ready to work. What would you like to do first?
 ```
 
-Include a reminder that they can update `project/{ISSUE}/state.md` with current focus and progress log as they work.
+Then branch based on the mode set in Step 1:
 
-## 7. When the User Describes the First Task
-
-**Do not start implementing.** When the user tells you what they want done:
-
-1. Research the relevant code (read files, explore the codebase)
-2. Write a short proposed approach: what you plan to change, where, and how
-3. Ask: "Does this approach work for you?"
-4. Wait for explicit confirmation before touching any files
-
-The user describing a task is **not** approval to implement it.
+- **Multiple issues mode**: Ask "Describe the next issue, or say `done` to finish." Repeat from Step 2 for each additional issue. When done, list all created issues and remind the user to run `/issue {number}` to start working.
+- **Start working mode**: Automatically continue as if the user invoked `/issue {ISSUE}` — proceed from the Load Context step of the issue command, loading `project/information.md`, the new `state.md`, and outputting the context summary before asking "What would you like to do?"
 
 ---
 

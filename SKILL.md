@@ -47,5 +47,7 @@ project/
 
 - Issue numbers are 3-digit zero-padded: `001`, `002`, ..., `999`
 - Slug prefixes by type: `feat-`, `fix-`, `refactor-`, `investigation-`
-- `state.md` is your "where did I leave off" file — keep it updated
+- `state.md` has a human-readable H1 title (editable) and an `**Issue**` field (the permanent slug)
+- Valid status values: `Todo`, `In Progress`, `In Review`, `Complete`, `Closed`
+- `state.md` is your "where did I leave off" file — Progress Log is append-only, never overwrite it
 - `project/information.md` accumulates cross-issue decisions and patterns

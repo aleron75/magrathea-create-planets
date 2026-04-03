@@ -118,7 +118,10 @@ Claude updates `project/information.md` with anything useful for future issues �
 
 ## Tips
 
-- **Claude proposes before it acts.** When you describe a task, Claude researches the code, writes a short approach, and waits for your go-ahead. Describing a task is not approval to implement it — this prevents unwanted changes and keeps you in control.
+- **Claude proposes before it acts.** When you describe a task, Claude researches the code, writes a structured plan listing every file it intends to touch, and waits for your explicit "yes" or "go ahead". Describing a task — or it being small and obvious — is not approval. No exceptions.
+- **Titles are editable, slugs are not.** The H1 in `state.md` is the human-readable title and can evolve as the issue does. The `**Issue**` field is the permanent slug reference — never change it.
+- **Status follows the kanban:** `Todo` → `In Progress` → `In Review` → `Complete` (or `Closed` if abandoned).
+- **Progress Log is permanent.** It only ever gets appended to — Claude should never erase earlier entries when closing an issue.
 - **Update `state.md` often.** At the end of a session, ask Claude: *"Update the state with what we did today."* Your future self will thank you.
 - **`information.md` is gold.** When closing an issue, ask Claude: *"What should we add to information.md from this work?"*
 - **Issue numbers are for humans.** `/issue 3` is easier to type than `/issue 003-feat-dark-mode-toggle`. Both work.
