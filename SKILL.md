@@ -1,21 +1,21 @@
 # Issue-Driven Workflow — Skill Description
 
-This skill set teaches Claude Code how to manage structured development work using **issues**: numbered directories that hold planning notes, research, tasks, and a running state scratchpad.
+This skill set teaches AI coding agents how to manage structured development work using **issues**: numbered directories that hold planning notes, research, tasks, and a running state scratchpad.
 
-## Commands
+## Prompts
 
-| Command | File | What it does |
-|---------|------|--------------|
-| `/issue [name-or-number]` | `commands/issue.md` | Start or resume work on an issue |
-| `/new-issue` | `commands/new-issue.md` | Interactively create a new issue |
-| `/list-issues` | `commands/list-issues.md` | Show all issues as a kanban board |
-| `/retro` | `commands/retro.md` | Run an open retrospective across all issues |
+| Prompt | File | What it does |
+|--------|------|--------------|
+| `issue [name-or-number]` | `prompts/issue.md` | Start or resume work on an issue |
+| `new-issue` | `prompts/new-issue.md` | Interactively create a new issue |
+| `list-issues` | `prompts/list-issues.md` | Show all issues as a kanban board |
+| `retro` | `prompts/retro.md` | Run an open retrospective across all issues |
 
-## How Claude Uses This
+## How Agents Use This
 
-When you invoke a command, Claude Code reads the corresponding markdown file from `.claude/commands/` and follows the instructions inside it. No plugin, no extension — just markdown instructions that tell Claude what to do.
+When you invoke a prompt, your agent reads the corresponding markdown file and follows the instructions inside it. No plugin, no extension — just markdown instructions that tell the agent what to do.
 
-A key behavior built into the commands: **Claude proposes before it acts.** When you describe a task, Claude researches the code, writes a short proposed approach, and waits for your explicit confirmation before making any changes. The description is not the approval.
+A key behavior built into the prompts: **the agent proposes before it acts.** When you describe a task, the agent researches the code, writes a short proposed approach, and waits for your explicit confirmation before making any changes. The description is not the approval.
 
 ## Project Structure Required
 
@@ -26,23 +26,18 @@ project/
   001-feat-something/
     planning/             ← design docs, approach notes
     research/             ← investigation findings, code analysis
-    tasks/                ← task lists, progress tracking
     state.md              ← scratchpad: current focus + progress log
   002-fix-something/
     ...
-.claude/
-  commands/
-    issue.md
-    list-issues.md
-    new-issue.md
 ```
 
 ## Installation
 
-1. Copy `commands/*.md` → `.claude/commands/` in your project
-2. Create `project/` directory at your project root
-3. Optionally copy `example/state.md` → `project/example-issue/state.md`
-4. Start Claude Code and run `/issue` to begin
+See the `install/` directory for agent-specific setup instructions:
+
+- [install/claude-code.md](install/claude-code.md) — Claude Code (Anthropic)
+- [install/opencode.md](install/opencode.md) — OpenCode (sst.dev)
+- [install/zed.md](install/zed.md) — Zed editor
 
 ## Conventions
 

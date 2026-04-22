@@ -1,7 +1,3 @@
----
-argument-hint: "[issue-name]"
----
-
 # Start or Resume Issue Work
 
 You are starting or resuming work on an issue. Follow these steps:
@@ -145,4 +141,4 @@ Before closing the issue, update `project/information.md` with:
 
 ---
 
-**Tip**: Run `/issue` again anytime to pick up where you left off—`state.md` will be automatically loaded.
+**Tip**: Invoke this prompt again anytime to pick up where you left off — `state.md` will be automatically loaded.

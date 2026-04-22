@@ -1,7 +1,3 @@
----
-argument-hint: ""
----
-
 # Create a New Issue
 
 You are creating a new issue. Follow these steps:
@@ -13,7 +9,7 @@ First, ask the user:
 > "Are you planning to create **multiple issues** (planning session), or do you want to **start working** on this one right away?"
 
 - **Multiple issues** — after each issue is created, ask "Describe the next issue, or say `done` to finish."
-- **Start working** — after creating the issue, automatically continue into the `/issue` workflow (from Step 4: Load Context onward)
+- **Start working** — after creating the issue, automatically continue into the `issue` workflow (from Step 4: Load Context onward)
 
 ## 2. Gather Issue Details
 
@@ -100,9 +96,9 @@ Output a brief summary:
 
 Then branch based on the mode set in Step 1:
 
-- **Multiple issues mode**: Ask "Describe the next issue, or say `done` to finish." Repeat from Step 2 for each additional issue. When done, list all created issues and remind the user to run `/issue {number}` to start working.
-- **Start working mode**: Automatically continue as if the user invoked `/issue {ISSUE}` — proceed from the Load Context step of the issue command, loading `project/information.md`, the new `state.md`, and outputting the context summary before asking "What would you like to do?"
+- **Multiple issues mode**: Ask "Describe the next issue, or say `done` to finish." Repeat from Step 2 for each additional issue. When done, list all created issues and remind the user to invoke the `issue` prompt with the issue number to start working.
+- **Start working mode**: Automatically continue as if the user invoked the `issue` prompt for `{ISSUE}` — proceed from the Load Context step, loading `project/information.md`, the new `state.md`, and outputting the context summary before asking "What would you like to do?"
 
 ---
 
-**Tip**: Run `/issue` anytime to resume work on any issue—`state.md` will be automatically loaded.
+**Tip**: Invoke the `issue` prompt anytime to resume work on any issue — `state.md` will be automatically loaded.

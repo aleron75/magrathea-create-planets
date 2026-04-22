@@ -1,6 +1,3 @@
----
----
-
 # List All Issues
 
 Display all available issues in the `project/` directory as a kanban-style board.
@@ -8,7 +5,7 @@ Display all available issues in the `project/` directory as a kanban-style board
 ## Implementation
 
 1. Check if `project/` directory exists
-   - If not, output: "No issues found. Run `/issue` to create one."
+   - If not, output: "No issues found. Use the `new-issue` prompt to create one."
    - Stop here.
 
 2. List all directories in `project/` (excluding `information.md`, `MEMORY.md`, `example-issue`)
@@ -57,7 +54,7 @@ Display all available issues in the `project/` directory as a kanban-style board
    | 005 | Add Login Feature | 2026-01-09 | 005-feat-add-login |
    ```
 
-6. End with: "Run `/issue {number}` to resume, or `/new-issue` to create one."
+6. End with: "Use the `issue` prompt with a number to resume, or `new-issue` to create one."
 
 ## Notes
 

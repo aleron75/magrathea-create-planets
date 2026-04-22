@@ -1,7 +1,3 @@
----
-argument-hint: ""
----
-
 # Run a Retrospective
 
 You are facilitating an open retrospective. Follow these steps:
@@ -92,4 +88,4 @@ If yes, produce a clean version of the retro file — same structure but written
 
 ---
 
-**Tip**: Run `/retro` at any cadence that feels right — after a batch of issues, at a project milestone, or whenever you want to step back and reflect.
+**Tip**: Run this prompt at any cadence that feels right — after a batch of issues, at a project milestone, or whenever you want to step back and reflect.
