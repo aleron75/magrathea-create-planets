@@ -1,3 +1,7 @@
+---
+description: Facilitate an open retrospective
+---
+
 # Run a Retrospective
 
 You are facilitating an open retrospective. Follow these steps:

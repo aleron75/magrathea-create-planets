@@ -1,3 +1,7 @@
+---
+description: List all issues as a kanban-style board
+---
+
 # List All Issues
 
 Display all available issues in the `project/` directory as a kanban-style board.

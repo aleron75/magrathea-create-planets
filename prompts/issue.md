@@ -1,3 +1,7 @@
+---
+description: Start or resume work on an issue
+---
+
 # Start or Resume Issue Work
 
 You are starting or resuming work on an issue. Follow these steps:

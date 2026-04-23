@@ -1,3 +1,7 @@
+---
+description: Create a new issue
+---
+
 # Create a New Issue
 
 You are creating a new issue. Follow these steps:
