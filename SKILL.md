@@ -10,6 +10,7 @@ Magrathea is a kanban-driven workflow that teaches AI coding agents how to manag
 | `capture` | `prompts/capture.md` | File a new issue. Works both for deliberate planning and for grabbing something mid-conversation. |
 | `board` | `prompts/board.md` | Show the kanban board (reads `magrathea/board.md`) |
 | `board-redraw` | `prompts/board-redraw.md` | Regenerate `magrathea/board.md` from every issue's `state.md`. Run on first setup, after migration, or to recover from drift. |
+| `ask` | `prompts/ask.md` | Ask Magrathea a question. Answers from `core.md` and retros, with citations. |
 | `retro` | `prompts/retro.md` | Run an open retrospective across all issues |
 | `migrate` | `prompts/migrate.md` | One-off: upgrade an existing `project/` layout to Magrathea. Delete after running. |
 

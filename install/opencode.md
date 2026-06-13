@@ -46,6 +46,7 @@ OpenCode discovers custom commands in `.opencode/commands/` at the project root 
 | `capture.md` | `/capture` or `/capture <description>` |
 | `board.md` | `/board` |
 | `board-redraw.md` | `/board-redraw` |
+| `ask.md` | `/ask` or `/ask <question>` |
 | `retro.md` | `/retro` |
 
 ## Argument passing
@@ -67,9 +68,10 @@ This project uses the Magrathea workflow. Accumulated project knowledge lives he
 
 - `magrathea/core.md` — patterns, decisions, lessons learned across all issues. Read this before suggesting architectural changes or making non-obvious choices.
 - `magrathea/board.md` — the kanban index. The current state of every issue at a glance.
+- `magrathea/retro/` — retrospective notes. Decisions and conclusions from past reviews.
 - `magrathea/{NNN-slug}/state.md` — the "where I left off" file for each issue, including its Progress Log.
 
-When the user references prior work ("the cart bug we fixed last week", "the auth refactor"), check `core.md` and the relevant issue's `state.md` before asking them to re-explain.
+When the user references prior work ("the cart bug we fixed last week", "the auth refactor"), check `core.md` and the relevant issue's `state.md` before asking them to re-explain. If the user asks an open-ended "did we ever..." or "what do we know about..." question, suggest `/ask` — it queries `core.md` and the retros with citations.
 ```
 
 Without this block the prompts still work, but the agent won't think to read `core.md` unsolicited — and that's the file that makes Magrathea worth the effort.

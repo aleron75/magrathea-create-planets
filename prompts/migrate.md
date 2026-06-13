@@ -30,7 +30,7 @@ Four actions, in order:
 
 1. Rename `project/` → `magrathea/`
 2. Rename `magrathea/information.md` → `magrathea/core.md`
-3. Replace your installed command files: delete the old ones (`issue.md`, `new-issue.md`, `list-issues.md`), install the new ones (`pickup.md`, `capture.md`, `board.md`, `board-redraw.md`), and refresh `retro.md` to the new layout
+3. Replace your installed command files: delete the old ones (`issue.md`, `new-issue.md`, `list-issues.md`), install the new ones (`pickup.md`, `capture.md`, `board.md`, `board-redraw.md`, `ask.md`), and refresh `retro.md` to the new layout
 4. Tell you to run `/board-redraw` afterward to generate the new kanban index (`magrathea/board.md`) from your existing issues — this command doesn't do it automatically; it's safer to keep migrate focused on the rename and leave the index build as an explicit second step
 
 ## Workflow
@@ -52,7 +52,7 @@ Check the following and record the result of each:
   - `.opencode/commands/`
   - (if neither, report "no installed prompts detected — you may be using Zed or a manual setup")
 - Which old-name command files are present in the detected commands folder? (Check for: `issue.md`, `new-issue.md`, `list-issues.md`, `rebuild-board.md`)
-- Which new-name command files are already present? (Check for: `pickup.md`, `capture.md`, `board.md`, `board-redraw.md`)
+- Which new-name command files are already present? (Check for: `pickup.md`, `capture.md`, `board.md`, `board-redraw.md`, `ask.md`)
 - For each prompt file present in the commands folder, does it still reference `project/` or `information.md`? (grep for those literal strings)
 
 ### Step 2 — Fail loudly if already migrated
@@ -63,7 +63,7 @@ If **all** of the following are true, the migration has already been run:
 - `project/` does not exist
 - `magrathea/core.md` exists (or `magrathea/information.md` does not exist)
 - None of the old-name command files are present (`issue.md`, `new-issue.md`, `list-issues.md`, `rebuild-board.md`)
-- The new-name command files are all present (`pickup.md`, `capture.md`, `board.md`, `board-redraw.md`)
+- The new-name command files are all present (`pickup.md`, `capture.md`, `board.md`, `board-redraw.md`, `ask.md`)
 
 In that case, output:
 
@@ -97,9 +97,9 @@ Actions I will take:
   3. Replace command files in .claude/commands/:
        - Delete:  issue.md, new-issue.md, list-issues.md
                   (and rebuild-board.md if present — superseded by board-redraw.md)
-       - Install: pickup.md, capture.md, board.md, board-redraw.md
+       - Install: pickup.md, capture.md, board.md, board-redraw.md, ask.md
        - Refresh: retro.md (re-copied with updated layout references)
-     See the Command Rename Map above for what changed.
+     See the Command Rename Map above for what changed. (`ask.md` is new — it queries `core.md` and the retros with citations.)
 
 I will NOT:
   - Edit anything inside your magrathea/{issue}/ directories (state.md, planning/, research/)
@@ -125,7 +125,7 @@ On confirmation, run the actions **in order**, stopping immediately if any step 
 3. **Replace command files in the detected commands folder:**
 
    - **Delete the old command files** that are present: `issue.md`, `new-issue.md`, `list-issues.md`, `rebuild-board.md` (only delete the ones that actually exist).
-   - **Install the new command files**: `pickup.md`, `capture.md`, `board.md`, `board-redraw.md`. Use the canonical versions from this repo's `prompts/` directory. Ask the user where the source repo is if you can't infer it; if they don't know or the source isn't available, write the new prompt content directly.
+   - **Install the new command files**: `pickup.md`, `capture.md`, `board.md`, `board-redraw.md`, `ask.md`. Use the canonical versions from this repo's `prompts/` directory. Ask the user where the source repo is if you can't infer it; if they don't know or the source isn't available, write the new prompt content directly.
    - **Refresh `retro.md`** to the new layout if it still references `project/` or `information.md`.
    - Do **not** copy `migrate.md` into the commands folder (it's already there — that's how you got invoked).
 
@@ -149,8 +149,12 @@ Command renames (your muscle memory will fight this for a day or two):
 
 Command files in .claude/commands/:
   - Removed: issue.md, new-issue.md, list-issues.md
-  - Installed: pickup.md, capture.md, board.md, board-redraw.md
+  - Installed: pickup.md, capture.md, board.md, board-redraw.md, ask.md
   - Refreshed: retro.md
+
+New capability in this version:
+  /ask — query the planet's memory (core.md + retros) with citations.
+         Try it: /ask what did we decide about <something>?
 
 Next steps:
   - Run `/board-redraw` first — it generates `magrathea/board.md`, the new fast kanban index.

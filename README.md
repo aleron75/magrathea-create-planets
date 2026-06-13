@@ -60,6 +60,12 @@ The headline use is mid-conversation: you're explaining a bug or sketching a fea
 
 Renders every issue as a kanban board grouped by status (Closed → Complete → In Review → Todo → In Progress), with the most actionable work closest to your prompt. Complete issues are capped at the 3 most recent to keep the view focused.
 
+### `ask`
+
+> "Hey Magrathea — what do we know about X?"
+
+Query the planet's memory. Reads `core.md` and every retro, then answers with citations. Use it like a favorite mixtape — for the things you keep wanting to refer back to. *"Did we already decide how auth works?"* / *"What did the last retro say about pace?"* / *"Why didn't we use Redis?"* Honest when the planet's memory is silent — won't fabricate.
+
 ### `retro`
 
 > "Let's step back and look at the geography."
@@ -94,6 +100,7 @@ your-project/
     ├── capture.md
     ├── board.md
     ├── board-redraw.md
+    ├── ask.md
     └── retro.md
 ```
 
@@ -198,7 +205,7 @@ If you were running an earlier version of this workflow (with `project/` and `in
 - **Titles are editable, slugs are not.** The H1 in `state.md` is the human-readable title and can evolve as the issue does. The `**Issue**` field is the permanent slug reference — never change it. The Vogons don't tolerate revisionism.
 - **Progress Log is permanent.** It only ever gets appended to — the agent should never erase earlier entries when closing an issue. The geology of the planet is a record, not a draft. Marvin would approve, if Marvin approved of anything.
 - **Update `state.md` often.** At the end of a session, ask your agent: *"Update the state with what we did today."* Your future self will thank you.
-- **`core.md` is gold.** When closing an issue, ask: *"What should we add to core.md from this work?"* The molten core feeds every future continent.
+- **`core.md` is gold.** When closing an issue, ask: *"What should we add to core.md from this work?"* The molten core feeds every future continent — and powers `/ask`. The quality of `/ask` is the quality of `core.md`.
 - **Issue numbers are for humans.** `issue 3` is easier to type than `issue 003-feat-dark-mode-toggle`. Both work.
 - **Keep issues focused.** One clear goal per continent. If scope creeps, create a new issue and link them in `state.md`.
 - **You control the workflow.** These are markdown files — read them, edit them, adapt them to your team's needs. Magrathea is a planet you can re-terraform.

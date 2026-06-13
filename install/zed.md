@@ -9,7 +9,7 @@ Zed has a built-in Prompt Library accessible from the AI panel. You can add the 
 1. Open the AI panel in Zed
 2. Open the Prompt Library (click the book icon or use the command palette)
 3. Create a new prompt for each file in `prompts/`:
-   - Name: `pickup`, `capture`, `board`, `board-redraw`, `retro`
+   - Name: `pickup`, `capture`, `board`, `board-redraw`, `ask`, `retro`
    - Body: paste the contents of the corresponding `.md` file
 4. Create the planet at your project root (folder + empty kanban index):
    ```bash
@@ -59,13 +59,14 @@ This project uses the Magrathea workflow. Accumulated project knowledge lives he
 
 - `magrathea/core.md` — patterns, decisions, lessons learned across all issues. Read this before suggesting architectural changes or making non-obvious choices.
 - `magrathea/board.md` — the kanban index. The current state of every issue at a glance.
+- `magrathea/retro/` — retrospective notes. Decisions and conclusions from past reviews.
 - `magrathea/{NNN-slug}/state.md` — the "where I left off" file for each issue, including its Progress Log.
 
-When the user references prior work ("the cart bug we fixed last week", "the auth refactor"), check `core.md` and the relevant issue's `state.md` before asking them to re-explain.
+When the user references prior work ("the cart bug we fixed last week", "the auth refactor"), check `core.md` and the relevant issue's `state.md` before asking them to re-explain. If the user asks an open-ended "did we ever..." or "what do we know about..." question, suggest `/ask` — it queries `core.md` and the retros with citations.
 ```
 
 Without this block the prompts still work, but the agent won't think to read `core.md` unsolicited — and that's the file that makes Magrathea worth the effort.
 
 ## Note
 
-For a fully integrated slash command experience in Zed, a Zed extension would need to be built. This is outside the scope of this workflow, but the prompt files in `prompts/` contain everything needed to implement one (the five commands: `pickup`, `capture`, `board`, `board-redraw`, `retro`).
+For a fully integrated slash command experience in Zed, a Zed extension would need to be built. This is outside the scope of this workflow, but the prompt files in `prompts/` contain everything needed to implement one (the six commands: `pickup`, `capture`, `board`, `board-redraw`, `ask`, `retro`).
