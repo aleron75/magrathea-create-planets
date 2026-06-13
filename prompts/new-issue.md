@@ -4,7 +4,7 @@ description: Create a new issue
 
 # Create a New Issue
 
-You are creating a new issue. Follow these steps:
+You are creating a new continent on the Magrathea planet. Follow these steps:
 
 ## 1. Set Mode
 
@@ -25,8 +25,8 @@ Wait for their response.
 
 Before generating anything, read:
 
-1. `project/MEMORY.md` — project-specific conventions (if present)
-2. `project/information.md` — cross-issue knowledge base (if present)
+1. `magrathea/MEMORY.md` — project-specific conventions (if present)
+2. `magrathea/core.md` — the molten core, cross-issue knowledge (if present)
 
 This ensures the new issue title, slug, and initial state reflect established project conventions and avoids duplicating work already done.
 
@@ -47,7 +47,7 @@ Wait for their response and adjust if needed.
 
 ## 5. Determine Issue Number
 
-- Scan `project/` directory for existing directories matching the pattern `^\d{3}-` (e.g., `001-`, `002-`, etc.)
+- Scan `magrathea/` directory for existing directories matching the pattern `^\d{3}-` (e.g., `001-`, `002-`, etc.)
 - Find the highest number N
 - Assign the next number as (N+1), zero-padded to 3 digits (e.g., if highest is `006-`, use `007-`)
 - Construct full issue directory name: `{NNN}-{slug}` (e.g., `007-feat-new-feature`)
@@ -55,18 +55,18 @@ Wait for their response and adjust if needed.
 
 ## 6. Create Directory Structure
 
-Create the following structure for `project/{ISSUE}/`:
+Create the following structure for `magrathea/{ISSUE}/`:
 
 ```
-project/{ISSUE}/
+magrathea/{ISSUE}/
   planning/          (create with .gitkeep)
   research/          (create with .gitkeep)
   state.md           (create with initial content)
 ```
 
-Valid status values: `Todo`, `In Progress`, `In Review`, `Complete`, `Closed`
+The new issue lands on the board in the `Todo` lane. Valid status values: `Todo`, `In Progress`, `In Review`, `Complete`, `Closed`.
 
-Create `project/{ISSUE}/state.md` with this content (replacing {ISSUE} with the full directory name, {TITLE} with the confirmed human-readable title, and {DATE} with today's date):
+Create `magrathea/{ISSUE}/state.md` with this content (replacing {ISSUE} with the full directory name, {TITLE} with the confirmed human-readable title, and {DATE} with today's date):
 
 ```markdown
 # {TITLE}
@@ -88,21 +88,21 @@ Create `project/{ISSUE}/state.md` with this content (replacing {ISSUE} with the 
 - Session started
 ```
 
-If `project/information.md` does not exist, create it as an empty file.
+If `magrathea/core.md` does not exist, create it as an empty file — the molten core grows as issues complete.
 
 ## 7. Confirm to User
 
 Output a brief summary:
 
 ```
-✓ Created issue: {ISSUE}
+✓ Created issue: {ISSUE} (Todo)
 ```
 
 Then branch based on the mode set in Step 1:
 
 - **Multiple issues mode**: Ask "Describe the next issue, or say `done` to finish." Repeat from Step 2 for each additional issue. When done, list all created issues and remind the user to invoke the `issue` prompt with the issue number to start working.
-- **Start working mode**: Automatically continue as if the user invoked the `issue` prompt for `{ISSUE}` — proceed from the Load Context step, loading `project/information.md`, the new `state.md`, and outputting the context summary before asking "What would you like to do?"
+- **Start working mode**: Automatically continue as if the user invoked the `issue` prompt for `{ISSUE}` — proceed from the Load Context step, loading `magrathea/core.md`, the new `state.md`, and outputting the context summary before asking "What would you like to do?"
 
 ---
 
-**Tip**: Invoke the `issue` prompt anytime to resume work on any issue — `state.md` will be automatically loaded.
+**Tip**: Invoke the `issue` prompt anytime to resume work on any issue — `state.md` will be automatically loaded, and the card will move to `In Progress` if it was in `Todo`.

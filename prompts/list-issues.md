@@ -2,17 +2,17 @@
 description: List all issues as a kanban-style board
 ---
 
-# List All Issues
+# Show the Board
 
-Display all available issues in the `project/` directory as a kanban-style board.
+Render every issue in the `magrathea/` directory as a kanban-style board. This is the planet's geography at a glance.
 
 ## Implementation
 
-1. Check if `project/` directory exists
-   - If not, output: "No issues found. Use the `new-issue` prompt to create one."
+1. Check if `magrathea/` directory exists
+   - If not, output: "No planet yet. Use the `new-issue` prompt to create one."
    - Stop here.
 
-2. List all directories in `project/` (excluding `information.md`, `MEMORY.md`, `example-issue`)
+2. List all directories in `magrathea/` (excluding `core.md`, `MEMORY.md`, `example-issue`, `retro`)
 
 3. For each issue directory found:
    - Extract the **number** from the directory name if it matches `^\d{3}-(.+)$`
@@ -62,7 +62,7 @@ Display all available issues in the `project/` directory as a kanban-style board
 
 ## Notes
 
-- Always show all groups, even if empty (show `(none)`)
+- Always show all groups, even if empty (show `(none)`) — the board is always the full board
 - In Progress is last — it's the most actionable and closest to the prompt
 - Complete and Closed are capped at 3 most recent to keep the view focused
 - Sort ascending for active groups (lowest number = oldest = most likely to need attention)

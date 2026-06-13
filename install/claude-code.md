@@ -1,4 +1,4 @@
-# Install: Claude Code
+# Install Magrathea: Claude Code
 
 Claude Code discovers custom commands in `.claude/commands/` at the project root. Each `.md` file becomes a slash command.
 
@@ -11,10 +11,10 @@ Claude Code discovers custom commands in `.claude/commands/` at the project root
    cp /path/to/prompts/*.md .claude/commands/
    ```
 
-2. Create the `project/` directory:
+2. Create the planet:
 
    ```bash
-   mkdir project
+   mkdir magrathea
    ```
 
 3. Start Claude Code and run `/issue` to begin.

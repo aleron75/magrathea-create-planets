@@ -1,4 +1,4 @@
-# Install: Zed
+# Install Magrathea: Zed
 
 Zed does not support markdown-based custom slash commands directly — slash commands require building a Zed extension. However, you can use the prompts in Zed's **Prompt Library** or paste them manually into the AI panel.
 
@@ -11,9 +11,9 @@ Zed has a built-in Prompt Library accessible from the AI panel. You can add the 
 3. Create a new prompt for each file in `prompts/`:
    - Name: `issue`, `new-issue`, `list-issues`, `retro`
    - Body: paste the contents of the corresponding `.md` file
-4. Create the `project/` directory at your project root:
+4. Create the planet at your project root:
    ```bash
-   mkdir project
+   mkdir magrathea
    ```
 5. Invoke via `/prompt issue` in the AI panel
 

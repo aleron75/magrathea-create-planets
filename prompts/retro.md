@@ -4,32 +4,32 @@ description: Facilitate an open retrospective
 
 # Run a Retrospective
 
-You are facilitating an open retrospective. Follow these steps:
+You are facilitating an open retrospective — a chance for the Magratheans to step back and look at the planet's geography. Follow these steps:
 
 ## 1. Load Context
 
 Read the following — do not skip any that exist:
 
-1. `project/information.md` — cross-issue knowledge base: patterns, decisions, lessons learned
-2. First 6 lines of all `project/*/state.md` — issue titles, statuses, and dates (lean read)
-3. All files in `project/retro/` sorted by filename ascending — extract:
+1. `magrathea/core.md` — the molten core: cross-issue knowledge, patterns, decisions, lessons learned
+2. First 6 lines of all `magrathea/*/state.md` — issue titles, statuses, and dates (lean read)
+3. All files in `magrathea/retro/` sorted by filename ascending — extract:
    - `## Open Threads` from the most recent retro — these are carried forward
    - `## Conclusions` from all previous retros — do not reopen these
 
-If `project/retro/` does not exist, create it.
+If `magrathea/retro/` does not exist, create it.
 
 ## 2. Prepare Observations
 
 Before opening the floor, synthesize what you see in the data:
 
-- **Issue velocity**: counts by status, sense of pace and momentum
-- **Recurring themes**: patterns spotted in `information.md` (what keeps coming up?)
+- **Board health**: counts by status (Todo / In Progress / In Review / Complete / Closed), sense of pace and momentum
+- **Recurring themes**: patterns spotted in `core.md` (what keeps coming up?)
 - **Scope and drift**: issues where title or progress log suggest scope changed
 - **Open threads**: unresolved points carried from previous retro (if any)
 
 Do not structure this as guided questions. Present it as "here is what I see" and then open the floor:
 
-> "That's what the data shows. What stands out to you?"
+> "That's what the planet looks like from orbit. What stands out to you?"
 
 ## 3. Facilitate the Conversation
 
@@ -48,12 +48,12 @@ When the conversation feels complete, summarize:
 For each action item:
 - Suggest a title and slug following standard issue conventions
 - Note it was created from this retro in the issue's Progress Log
-- Create all action item issues in batch (confirm titles/slugs before creating)
+- Create all action item issues in batch (confirm titles/slugs before creating) — they land in the `Todo` lane
 - Record the issue numbers in the retro file: `- Improve confirmation flow → #050`
 
 ## 5. Write the Retro File
 
-Save the completed retro to `project/retro/YYYYMMDD-retro-{slug}.md` where the slug reflects the main theme of the session (decided at close, not upfront).
+Save the completed retro to `magrathea/retro/YYYYMMDD-retro-{slug}.md` where the slug reflects the main theme of the session (decided at close, not upfront).
 
 Use this structure:
 
@@ -92,4 +92,4 @@ If yes, produce a clean version of the retro file — same structure but written
 
 ---
 
-**Tip**: Run this prompt at any cadence that feels right — after a batch of issues, at a project milestone, or whenever you want to step back and reflect.
+**Tip**: Run this prompt at any cadence that feels right — after a batch of issues, at a project milestone, or whenever you want to step back and look at the planet from orbit.

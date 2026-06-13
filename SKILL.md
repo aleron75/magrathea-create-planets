@@ -1,14 +1,14 @@
-# Issue-Driven Workflow — Skill Description
+# Magrathea — Skill Description
 
-This skill set teaches AI coding agents how to manage structured development work using **issues**: numbered directories that hold planning notes, research, tasks, and a running state scratchpad.
+Magrathea is a kanban-driven workflow that teaches AI coding agents how to manage structured development work using **issues**: numbered directories that hold planning notes, research, tasks, and a running state scratchpad. Each issue is a continent under construction on a planet (`magrathea/`) whose molten core (`core.md`) accumulates shared project knowledge across every issue.
 
 ## Prompts
 
 | Prompt | File | What it does |
 |--------|------|--------------|
-| `issue [name-or-number]` | `prompts/issue.md` | Start or resume work on an issue |
+| `issue [name-or-number]` | `prompts/issue.md` | Start or resume work on an issue (and move it across the board) |
 | `new-issue` | `prompts/new-issue.md` | Interactively create a new issue |
-| `list-issues` | `prompts/list-issues.md` | Show all issues as a kanban board |
+| `list-issues` | `prompts/list-issues.md` | Show the kanban board |
 | `retro` | `prompts/retro.md` | Run an open retrospective across all issues |
 
 ## How Agents Use This
@@ -17,11 +17,29 @@ When you invoke a prompt, your agent reads the corresponding markdown file and f
 
 A key behavior built into the prompts: **the agent proposes before it acts.** When you describe a task, the agent researches the code, writes a short proposed approach, and waits for your explicit confirmation before making any changes. The description is not the approval.
 
+## Kanban Board
+
+Every issue carries a status that travels through the same lanes:
+
+```
+Todo  →  In Progress  →  In Review  →  Complete
+                                          ↓
+                                       Closed
+```
+
+- **Todo** — created but not yet started
+- **In Progress** — actively being worked on (auto-set when `/issue` opens a Todo card)
+- **In Review** — implementation done, awaiting verification
+- **Complete** — verified and merged into the planet's geology
+- **Closed** — abandoned without completion
+
+Status moves are explicit acts. `/list-issues` always shows the current board.
+
 ## Project Structure Required
 
 ```
-project/
-  information.md          ← cross-issue knowledge base (auto-created)
+magrathea/
+  core.md                 ← molten core: shared knowledge across all issues (auto-created)
   example-issue/          ← optional reference template
   001-feat-something/
     planning/             ← design docs, approach notes
@@ -29,6 +47,7 @@ project/
     state.md              ← scratchpad: current focus + progress log
   002-fix-something/
     ...
+  retro/                  ← retrospective notes (auto-created on first retro)
 ```
 
 ## Installation
@@ -46,4 +65,4 @@ See the `install/` directory for agent-specific setup instructions:
 - `state.md` has a human-readable H1 title (editable) and an `**Issue**` field (the permanent slug)
 - Valid status values: `Todo`, `In Progress`, `In Review`, `Complete`, `Closed`
 - `state.md` is your "where did I leave off" file — Progress Log is append-only, never overwrite it
-- `project/information.md` accumulates cross-issue decisions and patterns
+- `magrathea/core.md` accumulates cross-issue decisions and patterns — the molten core that feeds every continent

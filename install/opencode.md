@@ -1,4 +1,4 @@
-# Install: OpenCode
+# Install Magrathea: OpenCode
 
 OpenCode discovers custom commands in `.opencode/commands/` at the project root (or `~/.config/opencode/commands/` for global commands). Each `.md` file becomes a slash command.
 
@@ -11,10 +11,10 @@ OpenCode discovers custom commands in `.opencode/commands/` at the project root 
    cp /path/to/prompts/*.md .opencode/commands/
    ```
 
-2. Create the `project/` directory:
+2. Create the planet:
 
    ```bash
-   mkdir project
+   mkdir magrathea
    ```
 
 3. Start OpenCode and run `/issue` to begin.
