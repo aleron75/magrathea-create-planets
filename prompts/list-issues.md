@@ -1,69 +1,42 @@
 ---
-description: List all issues as a kanban-style board
+description: Show the kanban board
 ---
 
 # Show the Board
 
-Render every issue in the `magrathea/` directory as a kanban-style board. This is the planet's geography at a glance.
+Display the current state of the planet at a glance. Reads from `magrathea/board.md` — the fast index — rather than walking every `state.md`.
 
 ## Implementation
 
-1. Check if `magrathea/` directory exists
-   - If not, output: "No planet yet. Use the `new-issue` prompt to create one."
-   - Stop here.
+1. **Check `magrathea/` exists.** If not, output: "No planet yet. Use `/new-issue` to create one." and stop.
 
-2. List all directories in `magrathea/` (excluding `core.md`, `MEMORY.md`, `example-issue`, `retro`)
+2. **Check `magrathea/board.md` exists.** If not, output:
 
-3. For each issue directory found:
-   - Extract the **number** from the directory name if it matches `^\d{3}-(.+)$`
-   - Read only the **first 6 lines** of the issue's `state.md` — that contains the Title (H1), Issue, Started, and Status fields
-   - Extract the **Title** from the H1 heading (first line starting with `# `)
-   - Extract the **Status** field (valid values: `Todo`, `In Progress`, `In Review`, `Complete`, `Closed`)
-   - Extract the **Started** date
-   - If `state.md` is missing, use "Unknown" for all fields
+   ```
+   No board index yet. Run /rebuild-board to generate magrathea/board.md from your existing issues, then try again.
+   ```
 
-4. Group issues by status. Output in this order (least urgent first, most actionable last — optimized for terminal where the bottom is closest to the prompt):
+   Stop. Do not attempt to walk state.md files — that's `/rebuild-board`'s job. Keeping this command fast is the point.
+
+3. **Read `magrathea/board.md`.** Parse the five (or six, if Unknown is present) status sections.
+
+4. **Render the board** in this order (least urgent first, most actionable last — optimized for terminal where the bottom is closest to the prompt):
 
    1. **Closed** — show all, sorted by number descending
-   2. **Complete** — show 3 most recent (highest number), then "X more not shown"
+   2. **Complete** — show 3 most recent (highest number), then "X more not shown" if there are more
    3. **In Review** — show all, sorted by number ascending
    4. **Todo** — show all, sorted by number ascending
    5. **In Progress** — show all, sorted by number ascending
+   6. **Unknown** (only if present) — show all
 
-5. Format each group as:
+5. **Use the same table format already in board.md.** Print empty groups as `(none)`.
 
-   ```
-   ## Closed
-   (none)
-
-   ## Complete
-   | # | Title | Started | Slug |
-   |---|-------|---------|------|
-   | 003 | Research Auth Patterns | 2026-01-01 | 003-research-auth-patterns |
-   | 002 | Add Dark Mode Toggle | 2026-01-05 | 002-feat-dark-mode-toggle |
-   | 001 | Fix Cart Persistence Bug | 2026-01-08 | 001-fix-cart-persistence-bug |
-   2 more not shown.
-
-   ## In Review
-   (none)
-
-   ## Todo
-   | # | Title | Started | Slug |
-   |---|-------|---------|------|
-   | 006 | Fix Something | 2026-01-10 | 006-fix-something |
-
-   ## In Progress
-   | # | Title | Started | Slug |
-   |---|-------|---------|------|
-   | 005 | Add Login Feature | 2026-01-09 | 005-feat-add-login |
-   ```
-
-6. End with: "Use the `issue` prompt with a number to resume, or `new-issue` to create one."
+6. End with: "Use `/issue <number>` to resume, `/new-issue` to create one, or `/rebuild-board` if the board looks out of date."
 
 ## Notes
 
-- Always show all groups, even if empty (show `(none)`) — the board is always the full board
-- In Progress is last — it's the most actionable and closest to the prompt
-- Complete and Closed are capped at 3 most recent to keep the view focused
-- Sort ascending for active groups (lowest number = oldest = most likely to need attention)
-- Sort descending for Complete/Closed (most recent first)
+- Always show all groups (even empty ones) — the board is always the full board.
+- In Progress is last — most actionable, closest to the prompt.
+- Complete and Closed are capped at 3 most recent to keep the view focused.
+- Truncation happens at render time. `board.md` itself stores everything.
+- If `board.md` looks suspicious (e.g. issues you remember creating are missing, or status doesn't match what you just changed), run `/rebuild-board`.

@@ -36,7 +36,7 @@ This isn't ceremony. It's the smallest possible system that lets an agent — an
 
 ---
 
-## The Four Prompts
+## The Prompts
 
 Sticky notes for your desk, except your agent can read them.
 
@@ -66,6 +66,12 @@ Renders every issue as a kanban board grouped by status (Closed → Complete →
 
 Reads every issue and previous retro, surfaces patterns and open threads, then facilitates an open conversation — no guided questions, you take it where it needs to go. Action items automatically become tracked issues. Produces a shareable summary for your team or community.
 
+### `rebuild-board`
+
+> "Sync the index with reality."
+
+Walks every `state.md` and regenerates `magrathea/board.md` from scratch. Run this on first setup, after a migration, or any time `/list-issues` looks out of sync with what's actually in your issue directories. The other commands will tell you when you need it.
+
 ---
 
 ## What Lives Where
@@ -76,16 +82,18 @@ your-project/
 ├── magrathea/                       ← the planet
 │   ├── core.md                      ← molten core: knowledge shared by every continent
 │   │                                  (patterns, decisions, lessons learned)
+│   ├── board.md                     ← fast kanban index — what /list-issues reads
 │   │
 │   └── 001-feat-user-login/         ← one continent per issue
 │       ├── planning/                ← design docs, approach notes
 │       ├── research/                ← what you investigated and found
 │       └── state.md                 ← "where I left off" scratchpad
 │
-└── prompts/                         ← the four prompt files (this repo)
+└── prompts/                         ← the prompt files (this repo)
     ├── issue.md
-    ├── list-issues.md
     ├── new-issue.md
+    ├── list-issues.md
+    ├── rebuild-board.md
     └── retro.md
 ```
 
@@ -150,10 +158,29 @@ The agent moves the card to `Complete` and updates `magrathea/core.md` with anyt
    mkdir -p .opencode/commands && cp prompts/*.md .opencode/commands/
    ```
 
-2. **Create the planet** at your project root:
+2. **Create the planet** at your project root (folder + empty kanban index):
 
    ```bash
-   mkdir magrathea
+   mkdir magrathea && cat > magrathea/board.md <<'EOF'
+   # Board
+
+   > Magrathea kanban board. Regenerate with `/rebuild-board` if you suspect it's out of sync.
+
+   ## Closed
+   (none)
+
+   ## Complete
+   (none)
+
+   ## In Review
+   (none)
+
+   ## Todo
+   (none)
+
+   ## In Progress
+   (none)
+   EOF
    ```
 
 3. **That's it.** Start your agent and invoke `/issue`.
@@ -180,7 +207,9 @@ If you were running an earlier version of this workflow (with `project/` and `in
 
 ## Adapting for Your Project
 
-The prompts are fully generic. The only project-specific thing is your agent's context file (e.g., `CLAUDE.md` for Claude Code) — that's where you describe your tech stack, environment, and development conventions. See your agent's documentation for how to set this up.
+The prompts are fully generic. The only project-specific thing is your agent's context file (e.g., `CLAUDE.md` for Claude Code, `AGENTS.md` for OpenCode, `.zed/rules.md` for Zed) — that's where you describe your tech stack, environment, and development conventions. See your agent's documentation for how to set this up.
+
+**Tell your agent where the knowledge lives.** The whole point of Magrathea is that project knowledge lives in the project itself — but the agent has to know to look there. Each install guide has a recommended snippet to drop into your context file (`CLAUDE.md`, `AGENTS.md`, etc.) that points the agent at `magrathea/core.md`, `magrathea/board.md`, and the issue directories. Copy it in once; everything afterward is easier.
 
 The `magrathea/core.md` file is where accumulated project knowledge lives. Start it empty; it grows as you work.
 

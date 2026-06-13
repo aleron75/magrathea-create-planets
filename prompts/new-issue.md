@@ -4,22 +4,36 @@ description: Create a new issue
 
 # Create a New Issue
 
-You are creating a new continent on the Magrathea planet. Follow these steps:
+You are creating a new continent on the Magrathea planet.
+
+## Two Ways This Gets Invoked
+
+You'll be invoked in one of two situations. Detect which before doing anything else.
+
+**A — Cold invocation.** The user said `/new-issue` (with or without arguments) at the start of a conversation, with no other context in play. You'll need to ask what kind of session it is and what the issue is about.
+
+**B — In-flight invocation.** The user was already mid-conversation — explaining a bug, sketching a feature, exploring an idea — and reached for `/new-issue` to capture it. The description is **already on the table**. Asking "what does this issue need to accomplish?" would make them repeat themselves, which is what we're trying to fix.
+
+**How to detect in-flight:**
+- `$ARGUMENTS` contains a description ("add a dark mode toggle", "the cart bug we just talked about", etc.), OR
+- The immediately preceding conversation clearly describes a concrete, scoped piece of work that the user just said should become an issue
+
+When in doubt, treat the invocation as in-flight if there's *any* concrete material to work from. The cost of skipping a question the user already answered is high. The cost of confirming a generated title is low.
 
 ## 1. Set Mode
 
-First, ask the user:
+- **If in-flight (B):** assume `start working` mode. Skip the "multiple or start working?" question entirely. Do not ask it. Do not ask "what does this issue need to accomplish?" either — you already have the material.
+- **If cold (A):** ask:
 
-> "Are you planning to create **multiple issues** (planning session), or do you want to **start working** on this one right away?"
+  > "Are you planning to create **multiple issues** (planning session), or do you want to **start working** on this one right away?"
 
-- **Multiple issues** — after each issue is created, ask "Describe the next issue, or say `done` to finish."
-- **Start working** — after creating the issue, automatically continue into the `issue` workflow (from Step 4: Load Context onward)
+  - **Multiple issues** — after each issue is created, ask "Describe the next issue, or say `done` to finish."
+  - **Start working** — after creating the issue, automatically continue into the `issue` workflow (from Step 4: Load Context onward)
 
 ## 2. Gather Issue Details
 
-Ask the user: **What does this issue need to accomplish?** (description of the work, context, goals)
-
-Wait for their response.
+- **If in-flight (B):** skip. The description is the `$ARGUMENTS` value and/or the prior conversation. Move to Step 3.
+- **If cold (A):** ask: **What does this issue need to accomplish?** (description of the work, context, goals). Wait for their response.
 
 ## 3. Load Project Context
 
@@ -32,7 +46,7 @@ This ensures the new issue title, slug, and initial state reflect established pr
 
 ## 4. Generate Title and Slug
 
-Based on the description provided:
+Based on the description (whether asked-for or in-flight):
 - Generate a **concise title** (3-5 words)
 - Generate a **slug** using naming conventions:
   - Feature work: `feat-{feature-name}` (e.g., `feat-login-oauth`)
@@ -43,7 +57,7 @@ Based on the description provided:
 
 Show the user the generated **title** and **slug**, and ask for confirmation: "Is this good, or should I adjust?"
 
-Wait for their response and adjust if needed.
+Wait for their response and adjust if needed. **This confirmation is required even on in-flight invocations** — it's the only checkpoint where the user can correct your interpretation before a directory exists.
 
 ## 5. Determine Issue Number
 
@@ -53,7 +67,18 @@ Wait for their response and adjust if needed.
 - Construct full issue directory name: `{NNN}-{slug}` (e.g., `007-feat-new-feature`)
 - Use this as `{ISSUE}`
 
-## 6. Create Directory Structure
+## 6. Check the Board Index
+
+Before creating anything, check that `magrathea/board.md` exists. If not, stop and tell the user:
+
+```
+magrathea/board.md is missing — the kanban index hasn't been built yet.
+Run /rebuild-board first, then re-run this command.
+```
+
+The board and the filesystem must stay in sync. We don't create issues we can't index.
+
+## 7. Create Directory Structure
 
 Create the following structure for `magrathea/{ISSUE}/`:
 
@@ -90,7 +115,15 @@ Create `magrathea/{ISSUE}/state.md` with this content (replacing {ISSUE} with th
 
 If `magrathea/core.md` does not exist, create it as an empty file — the molten core grows as issues complete.
 
-## 7. Confirm to User
+## 8. Append to board.md
+
+After the directory is created and `state.md` is written, append the new issue's row to the `## Todo` group in `magrathea/board.md`:
+
+- The row format is: `| {NNN} | {Title} | {Started} | {NNN-slug} |`
+- If the Todo group currently reads `(none)`, replace it with the table header and the new row.
+- If the Todo group already has a table, insert the new row sorted by number ascending (new issues will usually go at the bottom since they have the highest number).
+
+## 9. Confirm to User
 
 Output a brief summary:
 
@@ -98,11 +131,12 @@ Output a brief summary:
 ✓ Created issue: {ISSUE} (Todo)
 ```
 
-Then branch based on the mode set in Step 1:
+Then branch:
 
-- **Multiple issues mode**: Ask "Describe the next issue, or say `done` to finish." Repeat from Step 2 for each additional issue. When done, list all created issues and remind the user to invoke the `issue` prompt with the issue number to start working.
-- **Start working mode**: Automatically continue as if the user invoked the `issue` prompt for `{ISSUE}` — proceed from the Load Context step, loading `magrathea/core.md`, the new `state.md`, and outputting the context summary before asking "What would you like to do?"
+- **In-flight mode (B):** the user was mid-thought — return them to the thread. Don't run the full "Load Context" summary. A short "Issue {ISSUE} captured. Want to keep going with what we were doing, or switch to working on it?" is enough. Let them choose.
+- **Multiple issues mode (cold A, multiple):** ask "Describe the next issue, or say `done` to finish." Repeat from Step 2 for each additional issue. When done, list all created issues and remind the user to invoke `/issue {number}` to start working.
+- **Start working mode (cold A, single):** automatically continue as if the user invoked `/issue {ISSUE}` — proceed from the Load Context step, loading `magrathea/core.md`, the new `state.md`, and outputting the context summary before asking "What would you like to do?"
 
 ---
 
-**Tip**: Invoke the `issue` prompt anytime to resume work on any issue — `state.md` will be automatically loaded, and the card will move to `In Progress` if it was in `Todo`.
+**Tip**: Invoke `/issue` anytime to resume work on any issue — `state.md` will be automatically loaded, and the card will move to `In Progress` if it was in `Todo`.

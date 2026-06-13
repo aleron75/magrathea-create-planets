@@ -50,7 +50,31 @@ Pending tasks: {unchecked items from ## Tasks in state.md, or "None"}
 
 This summary is mandatory — it confirms context was loaded and orients both you and the user.
 
-**Move the card.** If the current status is `Todo`, update it to `In Progress` immediately — opening an issue to work on it is the signal that work has begun and the kanban board should reflect reality.
+**Move the card.** If the current status is `Todo`, update it to `In Progress` immediately — opening an issue to work on it is the signal that work has begun and the kanban board should reflect reality. Then sync `board.md` (see §Board Sync below).
+
+## §Board Sync
+
+Whenever you change an issue's status (or create a new one), keep `magrathea/board.md` in sync. It is the fast index that `/list-issues` reads.
+
+**Before any update:** if `magrathea/board.md` does not exist, stop and tell the user:
+
+```
+magrathea/board.md is missing — the kanban index hasn't been built yet.
+Run /rebuild-board first, then re-run this command.
+```
+
+Do not attempt to update the issue's status or create directories until the board exists. The board and `state.md` must move together.
+
+**To update `board.md`:**
+1. Locate the row with the issue's slug in whichever status group currently contains it (the row is `| NNN | Title | Started | NNN-slug |`).
+2. Remove that row from its current group.
+3. Insert the row into the new status group, keeping the group's sort order (ascending by number for Todo / In Progress / In Review; descending for Complete / Closed).
+4. If the source group is now empty, replace its table with `(none)`.
+5. If the destination group was `(none)`, add the table header before inserting.
+
+For a new issue, append the row to the `## Todo` group's table (or replace `(none)` with a fresh table).
+
+Keep title and date in sync with `state.md` if either changes.
 
 ## 3. Bootstrap Directory Structure (if new)
 
@@ -89,6 +113,8 @@ Create `magrathea/{ISSUE}/state.md` with (where {ISSUE} is the full numbered iss
 
 For example, if creating issue `007-feat-new-feature` with title "Add New Feature", the header would be `# Add New Feature` and the Issue field `**Issue**: 007-feat-new-feature`.
 
+After creating the directory, append the new issue's row to the `## Todo` group in `board.md` (§Board Sync).
+
 (If `magrathea/core.md` does not exist, create it as an empty file—the molten core will be populated as issues complete.)
 
 ## 4. Confirm to User
@@ -112,7 +138,7 @@ The user describing a task is **not** approval to implement it. Neither is enthu
 
 Once confirmed:
 - Save the confirmed plan to `magrathea/{ISSUE}/planning/plan.md` before starting work
-- Update `**Status**` to `In Progress` (if not already)
+- Update `**Status**` to `In Progress` (if not already), and sync `board.md` (§Board Sync)
 - Replace `## Tasks` in `state.md` with a checkbox list derived from the plan
 
 ## 6. Guide During Work
@@ -131,7 +157,7 @@ As you work on this issue:
 
 ## 7. When Issue is Complete
 
-Move the card across the board: update `**Status**` to `Complete` (or `In Review` if it needs user testing first).
+Move the card across the board: update `**Status**` to `Complete` (or `In Review` if it needs user testing first), and sync `board.md` (§Board Sync) so `/list-issues` reflects reality.
 
 Remove any empty directories (`planning/`, `research/`) that contain only a `.gitkeep` file — they add no value if unused.
 

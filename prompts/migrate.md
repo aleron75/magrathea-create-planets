@@ -16,7 +16,9 @@ Three actions, in order:
 
 1. Rename `project/` → `magrathea/`
 2. Rename `magrathea/information.md` → `magrathea/core.md`
-3. Refresh the installed prompt files (your local copies of `issue.md`, `new-issue.md`, `list-issues.md`, `retro.md`) so they reference the new layout
+3. Refresh the installed prompt files (your local copies of `issue.md`, `new-issue.md`, `list-issues.md`, `retro.md`) and install the new `rebuild-board.md` so they reference the new layout and the kanban index
+
+You'll then run `/rebuild-board` yourself afterwards to generate the new kanban index (`magrathea/board.md`) from your existing issues. The migrate command doesn't do this — it's safer to keep migrate focused on the rename and leave the index build as an explicit second step.
 
 ## Workflow
 
@@ -80,6 +82,8 @@ Actions I will take:
        - new-issue.md
        - list-issues.md
        - retro.md
+     Plus install the new command:
+       - rebuild-board.md (new in this version)
 
 I will NOT:
   - Edit anything inside your magrathea/{issue}/ directories (state.md, planning/, research/)
@@ -102,7 +106,7 @@ On confirmation, run the actions **in order**, stopping immediately if any step 
 2. **Core file rename:** (only if `magrathea/information.md` exists)
    `mv magrathea/information.md magrathea/core.md`
 
-3. **Refresh installed prompts:** for each of `issue.md`, `new-issue.md`, `list-issues.md`, `retro.md` that still references `project/` or `information.md`, overwrite the local copy with the current Magrathea version.
+3. **Refresh installed prompts:** for each of `issue.md`, `new-issue.md`, `list-issues.md`, `retro.md` that still references `project/` or `information.md`, overwrite the local copy with the current Magrathea version. Also copy `rebuild-board.md` into the commands folder if it isn't there — it's required by the new versions of `/issue`, `/new-issue`, and `/list-issues` (they prompt the user to run it when `board.md` is missing).
 
    The user already has this repository checked out somewhere — they ran `cp prompts/*.md .claude/commands/` originally. Ask them where the source repo is if you cannot infer it. If they don't know or the source isn't available, write the new prompt content directly using the canonical versions in this repo's `prompts/` directory.
 
@@ -124,9 +128,12 @@ Refreshed prompts in .claude/commands/:
   - new-issue.md
   - list-issues.md
   - retro.md
+  - rebuild-board.md (newly installed)
 
 Next steps:
-  - Delete prompts/migrate.md from your commands folder — so long, and thanks for all the renames.
+  - Run `/rebuild-board` first — it generates `magrathea/board.md`, the new fast kanban index.
+    The other commands (`/issue`, `/new-issue`, `/list-issues`) refuse to run until it exists.
+  - Then delete prompts/migrate.md from your commands folder — so long, and thanks for all the renames.
   - Review the rename with `git status` and stage / commit it yourself when you're ready.
     (I deliberately did not touch git — if you had in-progress work staged, it's untouched.)
   - Run `/list-issues` to see your board on the renamed planet.
