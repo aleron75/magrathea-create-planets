@@ -1,10 +1,10 @@
 ---
-description: Start or resume work on an issue
+description: Pick up a card — start or resume work on an issue
 ---
 
-# Start or Resume Issue Work
+# Pick Up a Card
 
-You are starting or resuming work on an issue — a continent under construction on the Magrathea planet. Follow these steps:
+You are picking up work on an issue — a continent under construction on the Magrathea planet. This may be a fresh card the user wants to start, or a card already in motion they want to resume. Follow these steps:
 
 ## 1. Determine the Issue
 
@@ -54,13 +54,13 @@ This summary is mandatory — it confirms context was loaded and orients both yo
 
 ## §Board Sync
 
-Whenever you change an issue's status (or create a new one), keep `magrathea/board.md` in sync. It is the fast index that `/list-issues` reads.
+Whenever you change an issue's status (or create a new one), keep `magrathea/board.md` in sync. It is the fast index that `/board` reads.
 
 **Before any update:** if `magrathea/board.md` does not exist, stop and tell the user:
 
 ```
 magrathea/board.md is missing — the kanban index hasn't been built yet.
-Run /rebuild-board first, then re-run this command.
+Run /board-redraw first, then re-run this command.
 ```
 
 Do not attempt to update the issue's status or create directories until the board exists. The board and `state.md` must move together.
@@ -157,7 +157,7 @@ As you work on this issue:
 
 ## 7. When Issue is Complete
 
-Move the card across the board: update `**Status**` to `Complete` (or `In Review` if it needs user testing first), and sync `board.md` (§Board Sync) so `/list-issues` reflects reality.
+Move the card across the board: update `**Status**` to `Complete` (or `In Review` if it needs user testing first), and sync `board.md` (§Board Sync) so `/board` reflects reality.
 
 Remove any empty directories (`planning/`, `research/`) that contain only a `.gitkeep` file — they add no value if unused.
 

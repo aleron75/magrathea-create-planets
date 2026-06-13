@@ -17,7 +17,7 @@ Claude Code discovers custom commands in `.claude/commands/` at the project root
    mkdir magrathea && cat > magrathea/board.md <<'EOF'
    # Board
 
-   > Magrathea kanban board. Regenerate with `/rebuild-board` if you suspect it's out of sync.
+   > Magrathea kanban board. Regenerate with `/board-redraw` if you suspect it's out of sync.
 
    ## Closed
    (none)
@@ -36,21 +36,21 @@ Claude Code discovers custom commands in `.claude/commands/` at the project root
    EOF
    ```
 
-3. Start Claude Code and run `/issue` to begin.
+3. Start Claude Code and run `/pickup` to begin (or `/capture` to file your first issue).
 
 ## Invocation
 
 | Prompt | Command |
 |--------|---------|
-| `issue.md` | `/issue` or `/issue 5` or `/issue feat-login` |
-| `new-issue.md` | `/new-issue` |
-| `list-issues.md` | `/list-issues` |
-| `rebuild-board.md` | `/rebuild-board` |
+| `pickup.md` | `/pickup` or `/pickup 5` or `/pickup feat-login` |
+| `capture.md` | `/capture` or `/capture <description>` |
+| `board.md` | `/board` |
+| `board-redraw.md` | `/board-redraw` |
 | `retro.md` | `/retro` |
 
 ## Argument passing
 
-Claude Code passes everything after the command name as `$ARGUMENTS`. The `issue` prompt uses this to accept an issue number or slug directly.
+Claude Code passes everything after the command name as `$ARGUMENTS`. `/pickup` uses this to accept an issue number or slug directly. `/capture` uses it to detect in-flight invocations and skip questions the user has already answered.
 
 ## Agent context file
 

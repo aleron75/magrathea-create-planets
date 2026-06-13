@@ -30,7 +30,7 @@ Todo  →  In Progress  →  In Review  →  Complete
                                        Closed
 ```
 
-Every issue is a card on that board. Status moves are explicit — opening an issue moves it to `In Progress`, finishing moves it to `Complete`, and the board is always queryable with `/list-issues`. The most actionable lane sits closest to your prompt, because you'll want to act on it.
+Every issue is a card on that board. Status moves are explicit — picking up an issue moves it to `In Progress`, finishing moves it to `Complete`, and the board is always queryable with `/board`. The most actionable lane sits closest to your prompt, because you'll want to act on it.
 
 This isn't ceremony. It's the smallest possible system that lets an agent — and you — know what's actually next.
 
@@ -40,21 +40,21 @@ This isn't ceremony. It's the smallest possible system that lets an agent — an
 
 Sticky notes for your desk, except your agent can read them.
 
-### `issue`
+### `pickup`
 
 > "Hey, let's work on something."
 
-- **With a number**: `issue 5` or `issue 005` — resumes that issue, loads its state, moves it to `In Progress`
-- **With a name**: `issue feat-login` — finds it by slug and loads it
-- **Alone**: `issue` — the agent asks if you're resuming something or starting fresh
+- **With a number**: `pickup 5` or `pickup 005` — resumes that issue, loads its state, moves it to `In Progress`
+- **With a name**: `pickup feat-login` — finds it by slug and loads it
+- **Alone**: `pickup` — the agent asks if you're resuming something or starting fresh
 
-### `new-issue`
+### `capture`
 
-> "I have a new thing to track."
+> "Got an issue. File it before I forget."
 
-The agent asks whether you're planning multiple issues or starting work immediately, then generates a title and slug for you to confirm. In "start working" mode it flows directly into the issue workflow.
+The headline use is mid-conversation: you're explaining a bug or sketching a feature, you reach for `/capture`, and the agent files it without making you repeat yourself. Also works as a deliberate planning command — invoke it cold and it asks whether you're filing multiple issues or starting one immediately. In "start working" mode it flows directly into `/pickup`.
 
-### `list-issues`
+### `board`
 
 > "Show me the board."
 
@@ -66,11 +66,11 @@ Renders every issue as a kanban board grouped by status (Closed → Complete →
 
 Reads every issue and previous retro, surfaces patterns and open threads, then facilitates an open conversation — no guided questions, you take it where it needs to go. Action items automatically become tracked issues. Produces a shareable summary for your team or community.
 
-### `rebuild-board`
+### `board-redraw`
 
 > "Sync the index with reality."
 
-Walks every `state.md` and regenerates `magrathea/board.md` from scratch. Run this on first setup, after a migration, or any time `/list-issues` looks out of sync with what's actually in your issue directories. The other commands will tell you when you need it.
+Walks every `state.md` and regenerates `magrathea/board.md` from scratch. Run this on first setup, after a migration, or any time `/board` looks out of sync with what's actually in your issue directories. The other commands will tell you when you need it.
 
 ---
 
@@ -82,7 +82,7 @@ your-project/
 ├── magrathea/                       ← the planet
 │   ├── core.md                      ← molten core: knowledge shared by every continent
 │   │                                  (patterns, decisions, lessons learned)
-│   ├── board.md                     ← fast kanban index — what /list-issues reads
+│   ├── board.md                     ← fast kanban index — what /board reads
 │   │
 │   └── 001-feat-user-login/         ← one continent per issue
 │       ├── planning/                ← design docs, approach notes
@@ -90,10 +90,10 @@ your-project/
 │       └── state.md                 ← "where I left off" scratchpad
 │
 └── prompts/                         ← the prompt files (this repo)
-    ├── issue.md
-    ├── new-issue.md
-    ├── list-issues.md
-    ├── rebuild-board.md
+    ├── pickup.md
+    ├── capture.md
+    ├── board.md
+    ├── board-redraw.md
     └── retro.md
 ```
 
@@ -106,7 +106,7 @@ Where you install the prompts depends on your agent — see [Installation](#inst
 **Monday morning — you want to add a dark mode toggle:**
 
 ```
-You:    /new-issue
+You:    /capture
 Agent:  What does this issue need to accomplish?
 You:    Add a dark mode toggle to the header
 Agent:  Title: "Dark Mode Toggle" — slug: feat-dark-mode-toggle. Good?
@@ -119,7 +119,7 @@ Agent:  [writes a plan to magrathea/007-feat-dark-mode-toggle/planning/approach.
 **You get pulled into meetings. Come back Tuesday:**
 
 ```
-You:    /issue 7
+You:    /pickup 7
 Agent:  Resuming 007-feat-dark-mode-toggle.
         Status: In Progress
         Last focus: planning the toggle implementation.
@@ -164,7 +164,7 @@ The agent moves the card to `Complete` and updates `magrathea/core.md` with anyt
    mkdir magrathea && cat > magrathea/board.md <<'EOF'
    # Board
 
-   > Magrathea kanban board. Regenerate with `/rebuild-board` if you suspect it's out of sync.
+   > Magrathea kanban board. Regenerate with `/board-redraw` if you suspect it's out of sync.
 
    ## Closed
    (none)
@@ -183,7 +183,7 @@ The agent moves the card to `Complete` and updates `magrathea/core.md` with anyt
    EOF
    ```
 
-3. **That's it.** Start your agent and invoke `/issue`.
+3. **That's it.** Start your agent and invoke `/pickup` to start, or `/capture` to file a new issue.
 
 ### Upgrading from the old `project/` layout
 
@@ -194,7 +194,7 @@ If you were running an earlier version of this workflow (with `project/` and `in
 ## Tips
 
 - **Don't panic — but do confirm.** When you describe a task, the agent researches the code, writes a structured plan listing every file it intends to touch, and waits for your explicit "yes" or "go ahead". Describing a task — or it being small and obvious — is not approval. No exceptions.
-- **The board is the truth.** Status (`Todo`, `In Progress`, `In Review`, `Complete`, `Closed`) is how cards move. Moving status is a deliberate act, not a side effect. `/list-issues` shows you the board at any time.
+- **The board is the truth.** Status (`Todo`, `In Progress`, `In Review`, `Complete`, `Closed`) is how cards move. Moving status is a deliberate act, not a side effect. `/board` shows you the board at any time.
 - **Titles are editable, slugs are not.** The H1 in `state.md` is the human-readable title and can evolve as the issue does. The `**Issue**` field is the permanent slug reference — never change it. The Vogons don't tolerate revisionism.
 - **Progress Log is permanent.** It only ever gets appended to — the agent should never erase earlier entries when closing an issue. The geology of the planet is a record, not a draft. Marvin would approve, if Marvin approved of anything.
 - **Update `state.md` often.** At the end of a session, ask your agent: *"Update the state with what we did today."* Your future self will thank you.

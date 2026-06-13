@@ -8,15 +8,15 @@ Display the current state of the planet at a glance. Reads from `magrathea/board
 
 ## Implementation
 
-1. **Check `magrathea/` exists.** If not, output: "No planet yet. Use `/new-issue` to create one." and stop.
+1. **Check `magrathea/` exists.** If not, output: "No planet yet. Use `/capture` to file your first issue." and stop.
 
 2. **Check `magrathea/board.md` exists.** If not, output:
 
    ```
-   No board index yet. Run /rebuild-board to generate magrathea/board.md from your existing issues, then try again.
+   No board index yet. Run /board-redraw to generate magrathea/board.md from your existing issues, then try again.
    ```
 
-   Stop. Do not attempt to walk state.md files — that's `/rebuild-board`'s job. Keeping this command fast is the point.
+   Stop. Do not attempt to walk state.md files — that's `/board-redraw`'s job. Keeping this command fast is the point.
 
 3. **Read `magrathea/board.md`.** Parse the five (or six, if Unknown is present) status sections.
 
@@ -31,7 +31,7 @@ Display the current state of the planet at a glance. Reads from `magrathea/board
 
 5. **Use the same table format already in board.md.** Print empty groups as `(none)`.
 
-6. End with: "Use `/issue <number>` to resume, `/new-issue` to create one, or `/rebuild-board` if the board looks out of date."
+6. End with: "Use `/pickup <number>` to resume, `/capture` to file a new one, or `/board-redraw` if the board looks out of date."
 
 ## Notes
 
@@ -39,4 +39,4 @@ Display the current state of the planet at a glance. Reads from `magrathea/board
 - In Progress is last — most actionable, closest to the prompt.
 - Complete and Closed are capped at 3 most recent to keep the view focused.
 - Truncation happens at render time. `board.md` itself stores everything.
-- If `board.md` looks suspicious (e.g. issues you remember creating are missing, or status doesn't match what you just changed), run `/rebuild-board`.
+- If `board.md` looks suspicious (e.g. issues you remember creating are missing, or status doesn't match what you just changed), run `/board-redraw`.

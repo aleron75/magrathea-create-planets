@@ -1,18 +1,18 @@
 ---
-description: Create a new issue
+description: Capture an issue — file a new card on the board, with or without prior context
 ---
 
-# Create a New Issue
+# Capture an Issue
 
-You are creating a new continent on the Magrathea planet.
+You are capturing a new issue — a new continent that will be added to the Magrathea planet. The name fits both situations this is used in: deliberately filing a new card in a planning session, *and* grabbing something mid-conversation before it gets lost.
 
 ## Two Ways This Gets Invoked
 
 You'll be invoked in one of two situations. Detect which before doing anything else.
 
-**A — Cold invocation.** The user said `/new-issue` (with or without arguments) at the start of a conversation, with no other context in play. You'll need to ask what kind of session it is and what the issue is about.
+**A — Cold invocation.** The user said `/capture` (with or without arguments) at the start of a conversation, with no other context in play. You'll need to ask what kind of session it is and what the issue is about.
 
-**B — In-flight invocation.** The user was already mid-conversation — explaining a bug, sketching a feature, exploring an idea — and reached for `/new-issue` to capture it. The description is **already on the table**. Asking "what does this issue need to accomplish?" would make them repeat themselves, which is what we're trying to fix.
+**B — In-flight invocation.** The user was already mid-conversation — explaining a bug, sketching a feature, exploring an idea — and reached for `/capture` to file it before it gets lost. The description is **already on the table**. Asking "what does this issue need to accomplish?" would make them repeat themselves, which is what we're trying to fix.
 
 **How to detect in-flight:**
 - `$ARGUMENTS` contains a description ("add a dark mode toggle", "the cart bug we just talked about", etc.), OR
@@ -28,7 +28,7 @@ When in doubt, treat the invocation as in-flight if there's *any* concrete mater
   > "Are you planning to create **multiple issues** (planning session), or do you want to **start working** on this one right away?"
 
   - **Multiple issues** — after each issue is created, ask "Describe the next issue, or say `done` to finish."
-  - **Start working** — after creating the issue, automatically continue into the `issue` workflow (from Step 4: Load Context onward)
+  - **Start working** — after creating the issue, automatically continue into the `/pickup` workflow (from Step 4: Load Context onward)
 
 ## 2. Gather Issue Details
 
@@ -73,7 +73,7 @@ Before creating anything, check that `magrathea/board.md` exists. If not, stop a
 
 ```
 magrathea/board.md is missing — the kanban index hasn't been built yet.
-Run /rebuild-board first, then re-run this command.
+Run /board-redraw first, then re-run this command.
 ```
 
 The board and the filesystem must stay in sync. We don't create issues we can't index.
@@ -134,9 +134,9 @@ Output a brief summary:
 Then branch:
 
 - **In-flight mode (B):** the user was mid-thought — return them to the thread. Don't run the full "Load Context" summary. A short "Issue {ISSUE} captured. Want to keep going with what we were doing, or switch to working on it?" is enough. Let them choose.
-- **Multiple issues mode (cold A, multiple):** ask "Describe the next issue, or say `done` to finish." Repeat from Step 2 for each additional issue. When done, list all created issues and remind the user to invoke `/issue {number}` to start working.
-- **Start working mode (cold A, single):** automatically continue as if the user invoked `/issue {ISSUE}` — proceed from the Load Context step, loading `magrathea/core.md`, the new `state.md`, and outputting the context summary before asking "What would you like to do?"
+- **Multiple issues mode (cold A, multiple):** ask "Describe the next issue, or say `done` to finish." Repeat from Step 2 for each additional issue. When done, list all created issues and remind the user to invoke `/pickup {number}` to start working.
+- **Start working mode (cold A, single):** automatically continue as if the user invoked `/pickup {ISSUE}` — proceed from the Load Context step, loading `magrathea/core.md`, the new `state.md`, and outputting the context summary before asking "What would you like to do?"
 
 ---
 
-**Tip**: Invoke `/issue` anytime to resume work on any issue — `state.md` will be automatically loaded, and the card will move to `In Progress` if it was in `Todo`.
+**Tip**: Invoke `/pickup` anytime to resume work on any issue — `state.md` will be automatically loaded, and the card will move to `In Progress` if it was in `Todo`.
