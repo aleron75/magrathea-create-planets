@@ -40,6 +40,12 @@ This isn't ceremony. It's the smallest possible system that lets an agent — an
 
 Sticky notes for your desk, except your agent can read them.
 
+### `magrathea`
+
+> "Where am I, and what's going on?"
+
+The orientation command. Reads the README, `core.md`, the board, and the most recent retro, then prints a one-screen briefing: what this project is, what state the planet is in, what's already been decided, and what to do next. Run it when you open a fresh conversation — it costs nothing and saves the "so… where were we?" dance. *The Guide says: Don't panic.*
+
 ### `pickup`
 
 > "Hey, let's work on something."
@@ -96,6 +102,7 @@ your-project/
 │       └── state.md                 ← "where I left off" scratchpad
 │
 └── prompts/                         ← the prompt files (this repo)
+    ├── magrathea.md
     ├── pickup.md
     ├── capture.md
     ├── board.md

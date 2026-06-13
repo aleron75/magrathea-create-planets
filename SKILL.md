@@ -6,6 +6,7 @@ Magrathea is a kanban-driven workflow that teaches AI coding agents how to manag
 
 | Prompt | File | What it does |
 |--------|------|--------------|
+| `magrathea` | `prompts/magrathea.md` | Orient yourself — one-screen briefing on what this project is, the state of the planet, and what to do next |
 | `pickup [name-or-number]` | `prompts/pickup.md` | Pick up a card — start or resume work on an issue (and move it across the board) |
 | `capture` | `prompts/capture.md` | File a new issue. Works both for deliberate planning and for grabbing something mid-conversation. |
 | `board` | `prompts/board.md` | Show the kanban board (reads `magrathea/board.md`) |

@@ -42,6 +42,7 @@ Claude Code discovers custom commands in `.claude/commands/` at the project root
 
 | Prompt | Command |
 |--------|---------|
+| `magrathea.md` | `/magrathea` |
 | `pickup.md` | `/pickup` or `/pickup 5` or `/pickup feat-login` |
 | `capture.md` | `/capture` or `/capture <description>` |
 | `board.md` | `/board` |
