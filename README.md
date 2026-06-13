@@ -1,6 +1,10 @@
 # Magrathea
 
+> *"In those days spirits were brave, the stakes were high, men were real men, women were real women, and small furry creatures from Alpha Centauri were real small furry creatures from Alpha Centauri."* — Douglas Adams, on a previous golden age of software development.
+
 > Build a project-computer that remembers, mostly harmlessly.
+>
+> Solves 42 problems. Approximately.
 
 A kanban-driven workflow for AI coding agents — turns your project directory into a planet that keeps thinking even after you close the tab.
 
@@ -8,9 +12,9 @@ A kanban-driven workflow for AI coding agents — turns your project directory i
 
 ## The Problem It Solves
 
-Every AI coding agent conversation starts fresh. You explain the context, the agent helps, you close the tab. Next day: explain it all again.
+Every AI coding agent conversation starts fresh. You explain the context, the agent helps, you close the tab. Next day: explain it all again. It's the inverse of Deep Thought — a brilliant machine that re-forgets the question every time you ask it.
 
-Magrathea fixes that. Your project becomes a **planet under construction** — a `magrathea/` directory where every piece of work is its own continent, with planning notes, research, and a "where I left off" file. The accumulated geology of every issue feeds back into `core.md` — the molten core that all future work is built on top of.
+Magrathea fixes that. In Douglas Adams' *Hitchhiker's Guide to the Galaxy*, Magrathea is the legendary planet-factory where custom worlds are built to spec. Here, your project becomes the planet under construction — a `magrathea/` directory where every piece of work is its own continent, with planning notes, research, and a "where I left off" file. The accumulated geology of every issue feeds back into `core.md` — the molten core that all future work is built on top of.
 
 Open a new conversation, say "start issue 5", and the agent reads the state, loads the context, and picks up exactly where you stopped. The planet keeps spinning whether you're paying attention or not.
 
@@ -162,10 +166,10 @@ If you were running an earlier version of this workflow (with `project/` and `in
 
 ## Tips
 
-- **The agent proposes before it acts.** When you describe a task, the agent researches the code, writes a structured plan listing every file it intends to touch, and waits for your explicit "yes" or "go ahead". Describing a task — or it being small and obvious — is not approval. No exceptions.
+- **Don't panic — but do confirm.** When you describe a task, the agent researches the code, writes a structured plan listing every file it intends to touch, and waits for your explicit "yes" or "go ahead". Describing a task — or it being small and obvious — is not approval. No exceptions.
 - **The board is the truth.** Status (`Todo`, `In Progress`, `In Review`, `Complete`, `Closed`) is how cards move. Moving status is a deliberate act, not a side effect. `/list-issues` shows you the board at any time.
-- **Titles are editable, slugs are not.** The H1 in `state.md` is the human-readable title and can evolve as the issue does. The `**Issue**` field is the permanent slug reference — never change it.
-- **Progress Log is permanent.** It only ever gets appended to — the agent should never erase earlier entries when closing an issue. The geology of the planet is a record, not a draft.
+- **Titles are editable, slugs are not.** The H1 in `state.md` is the human-readable title and can evolve as the issue does. The `**Issue**` field is the permanent slug reference — never change it. The Vogons don't tolerate revisionism.
+- **Progress Log is permanent.** It only ever gets appended to — the agent should never erase earlier entries when closing an issue. The geology of the planet is a record, not a draft. Marvin would approve, if Marvin approved of anything.
 - **Update `state.md` often.** At the end of a session, ask your agent: *"Update the state with what we did today."* Your future self will thank you.
 - **`core.md` is gold.** When closing an issue, ask: *"What should we add to core.md from this work?"* The molten core feeds every future continent.
 - **Issue numbers are for humans.** `issue 3` is easier to type than `issue 003-feat-dark-mode-toggle`. Both work.
