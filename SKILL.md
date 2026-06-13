@@ -10,6 +10,7 @@ Magrathea is a kanban-driven workflow that teaches AI coding agents how to manag
 | `new-issue` | `prompts/new-issue.md` | Interactively create a new issue |
 | `list-issues` | `prompts/list-issues.md` | Show the kanban board |
 | `retro` | `prompts/retro.md` | Run an open retrospective across all issues |
+| `migrate` | `prompts/migrate.md` | One-off: upgrade an existing `project/` layout to Magrathea. Delete after running. |
 
 ## How Agents Use This
 

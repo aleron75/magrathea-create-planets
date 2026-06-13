@@ -154,6 +154,10 @@ The agent moves the card to `Complete` and updates `magrathea/core.md` with anyt
 
 3. **That's it.** Start your agent and invoke `/issue`.
 
+### Upgrading from the old `project/` layout
+
+If you were running an earlier version of this workflow (with `project/` and `information.md`), copy `prompts/migrate.md` into your commands folder and run `/migrate` once. It renames the folder and file, refreshes your installed prompts, and reports what it did. Delete `migrate.md` afterwards — it's a one-off.
+
 ---
 
 ## Tips
