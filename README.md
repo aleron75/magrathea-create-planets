@@ -8,6 +8,8 @@
 
 A kanban-driven workflow for AI coding agents — turns your project directory into a planet that keeps thinking even after you close the tab.
 
+![Earth - What a wonderful place to do research](assets/magrathea.png)
+
 ---
 
 ## The Problem It Solves
