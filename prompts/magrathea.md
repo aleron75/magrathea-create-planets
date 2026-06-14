@@ -98,32 +98,22 @@ If `magrathea/` does not exist, the planet hasn't been built yet. Skip the tour 
 
 This project doesn't have a `magrathea/` directory — the workflow hasn't been initialized here. Magrathea is a kanban-driven workflow for AI coding agents: every issue is a numbered directory with planning notes, research, and a "where I left off" file, and a shared `core.md` accumulates project knowledge across all of them.
 
-To build the planet:
+To build the planet, copy the four starter templates that ship with the Magrathea source repo:
 
-1. Create the directory and the empty kanban index:
+       mkdir magrathea
+       cp <path-to-magrathea-repo>/templates/readme.md  magrathea/readme.md
+       cp <path-to-magrathea-repo>/templates/board.md   magrathea/board.md
+       cp <path-to-magrathea-repo>/templates/core.md    magrathea/core.md
+       cp <path-to-magrathea-repo>/templates/state.md   magrathea/example-state.md
 
-       mkdir magrathea && cat > magrathea/board.md <<'EOF'
-       # Board
+   - `readme.md` — playful tour of the directory for humans browsing.
+   - `board.md` — empty kanban index that `/board` reads.
+   - `core.md` — molten core, pre-stubbed with the section headings the prompts and `/ask` know how to navigate.
+   - `example-state.md` — populated reference showing the canonical shape of a `state.md`. Lives in the planet so nobody has to look outside `magrathea/` to find it; `/board-redraw` ignores it (regex matches `^\d{3}-`).
 
-       > Magrathea kanban board. Regenerate with `/board-redraw` if you suspect it's out of sync.
+   (If you don't have the Magrathea source repo handy, I can write all four directly from the canonical templates — just say the word.)
 
-       ## Closed
-       (none)
-
-       ## Complete
-       (none)
-
-       ## In Review
-       (none)
-
-       ## Todo
-       (none)
-
-       ## In Progress
-       (none)
-       EOF
-
-2. Run `/capture` to file your first issue, or `/pickup` to start working.
+Then run `/capture` to file your first issue, or `/pickup` to start working.
 
 The Guide says: *Don't panic.* It also suggests bringing a towel.
 ```

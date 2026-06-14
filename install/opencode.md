@@ -11,30 +11,23 @@ OpenCode discovers custom commands in `.opencode/commands/` at the project root 
    cp /path/to/prompts/*.md .opencode/commands/
    ```
 
-2. Create the planet (folder + empty kanban index):
+2. Create the planet by copying the four starter templates that ship with this repo:
 
    ```bash
-   mkdir magrathea && cat > magrathea/board.md <<'EOF'
-   # Board
-
-   > Magrathea kanban board. Regenerate with `/board-redraw` if you suspect it's out of sync.
-
-   ## Closed
-   (none)
-
-   ## Complete
-   (none)
-
-   ## In Review
-   (none)
-
-   ## Todo
-   (none)
-
-   ## In Progress
-   (none)
-   EOF
+   mkdir magrathea
+   cp /path/to/templates/readme.md  magrathea/readme.md
+   cp /path/to/templates/board.md   magrathea/board.md
+   cp /path/to/templates/core.md    magrathea/core.md
+   cp /path/to/templates/state.md   magrathea/example-state.md
    ```
+
+   What each file is for:
+   - `readme.md` — a playful, Hitchhiker's-themed tour of the directory for humans browsing the project.
+   - `board.md` — the empty kanban index (`/board` reads this; `/board-redraw` rewrites it).
+   - `core.md` — the molten core, pre-stubbed with the section headings (`Decisions`, `Patterns`, `Constraints`, `Lessons Learned`, `Glossary`) that the prompts and `/ask` already know how to navigate.
+   - `example-state.md` — a populated reference showing what a healthy `state.md` looks like once work is underway. **Copy it into `magrathea/` even though no prompt opens it** — having it in-tree means humans (and curious agents) can see the canonical shape without leaving the planet. The prompts themselves create real `state.md` files from an inline template, so this one is purely a reference; the `^\d{3}-` regex in `/board-redraw` ignores it automatically.
+
+   If you don't have the source repo handy, the agent can write all four from the canonical content on first run — copying the templates is just faster.
 
 3. Start OpenCode and run `/pickup` to begin (or `/capture` to file your first issue).
 

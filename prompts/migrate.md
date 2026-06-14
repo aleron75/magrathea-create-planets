@@ -31,12 +31,15 @@ The noun "issue" stays everywhere it already was — directories (`001-feat-foo`
 
 ## What This Does
 
-Four actions, in order:
+Five actions, in order:
 
 1. Rename `project/` → `magrathea/`
 2. Rename `magrathea/information.md` → `magrathea/core.md`
-3. Replace your installed command files: delete the old ones (`issue.md`, `new-issue.md`, `list-issues.md`), install the new ones (`pickup.md`, `capture.md`, `board.md`, `board-redraw.md`, `ask.md`, `magrathea.md`), and refresh `retro.md` to the new layout
-4. Tell you to run `/board-redraw` afterward to generate the new kanban index (`magrathea/board.md`) from your existing issues — this command doesn't do it automatically; it's safer to keep migrate focused on the rename and leave the index build as an explicit second step
+3. Drop two reference files into the planet from the source repo's `templates/` directory (skip each one if it already exists):
+   - `magrathea/readme.md` (from `templates/readme.md`) — a playful, Hitchhiker's-themed tour of what the directory is, so anyone browsing the project's files later knows what they've stumbled into.
+   - `magrathea/example-state.md` (from `templates/state.md`) — a populated reference showing what a healthy `state.md` looks like once work is underway. No prompt opens it; it lives in the planet so humans and curious agents can see the canonical shape without leaving `magrathea/`. `/board-redraw` ignores it (regex matches `^\d{3}-`).
+4. Replace your installed command files: delete the old ones (`issue.md`, `new-issue.md`, `list-issues.md`), install the new ones (`pickup.md`, `capture.md`, `board.md`, `board-redraw.md`, `ask.md`, `magrathea.md`), and refresh `retro.md` to the new layout
+5. Tell you to run `/board-redraw` afterward to generate the new kanban index (`magrathea/board.md`) from your existing issues — this command doesn't do it automatically; it's safer to keep migrate focused on the rename and leave the index build as an explicit second step
 
 ## Workflow
 
@@ -52,6 +55,8 @@ Check the following and record the result of each:
 - Does `magrathea/` already exist?
 - Does `project/information.md` exist?
 - Does `magrathea/core.md` already exist?
+- Does `magrathea/readme.md` (or `project/readme.md`) already exist?
+- Does `magrathea/example-state.md` (or `project/example-state.md`) already exist?
 - Where are the installed prompts located? Check in this order and pick the first that exists:
   - `.claude/commands/`
   - `.opencode/commands/`
@@ -89,17 +94,26 @@ Output a structured report. Be specific. Example:
 Migration plan for: {absolute path of working directory}
 
 Detected:
-  - project/ exists                       ✓
-  - magrathea/ does not exist             ✓
-  - project/information.md exists         ✓
-  - Installed prompts: .claude/commands/  ✓
-  - Old command files present:            issue.md, new-issue.md, list-issues.md, retro.md
-  - New command files present:            (none)
+  - project/ exists                            ✓
+  - magrathea/ does not exist                  ✓
+  - project/information.md exists              ✓
+  - magrathea/readme.md does not exist         ✓
+  - magrathea/example-state.md does not exist  ✓
+  - Installed prompts: .claude/commands/       ✓
+  - Old command files present:                 issue.md, new-issue.md, list-issues.md, retro.md
+  - New command files present:                 (none)
 
 Actions I will take:
   1. Rename:  project/  →  magrathea/                          (plain `mv`)
   2. Rename:  magrathea/information.md  →  magrathea/core.md   (plain `mv`)
-  3. Replace command files in .claude/commands/:
+  3. Install: magrathea/readme.md                              (from templates/readme.md —
+                                                                a playful tour of the planet
+                                                                for anyone browsing the repo)
+             magrathea/example-state.md                        (from templates/state.md —
+                                                                reference shape of a healthy
+                                                                state.md, in-tree so nobody
+                                                                has to leave the planet to see it)
+  4. Replace command files in .claude/commands/:
        - Delete:  issue.md, new-issue.md, list-issues.md
                   (and rebuild-board.md if present — superseded by board-redraw.md)
        - Install: pickup.md, capture.md, board.md, board-redraw.md, ask.md, magrathea.md
@@ -129,7 +143,12 @@ On confirmation, run the actions **in order**, stopping immediately if any step 
 2. **Core file rename:** (only if `magrathea/information.md` exists)
    `mv magrathea/information.md magrathea/core.md`
 
-3. **Replace command files in the detected commands folder:**
+3. **Install reference files into the planet** from the source repo's `templates/` directory. For each file, skip if a file of the same name already exists; otherwise copy it in. If the source repo isn't available, write the file directly using the canonical content — neither file is something the prompts depend on, so they're safe to recreate from memory.
+
+   - `cp <repo>/templates/readme.md magrathea/readme.md` — Hitchhiker's-themed orientation document for humans browsing the directory.
+   - `cp <repo>/templates/state.md magrathea/example-state.md` — populated reference showing the canonical `state.md` shape. Lives in the planet so nobody has to look outside `magrathea/` to find it.
+
+4. **Replace command files in the detected commands folder:**
 
    - **Delete the old command files** that are present: `issue.md`, `new-issue.md`, `list-issues.md`, `rebuild-board.md` (only delete the ones that actually exist).
    - **Install the new command files**: `pickup.md`, `capture.md`, `board.md`, `board-redraw.md`, `ask.md`, `magrathea.md`. Use the canonical versions from this repo's `prompts/` directory. Ask the user where the source repo is if you can't infer it; if they don't know or the source isn't available, write the new prompt content directly.
@@ -146,6 +165,10 @@ Output a summary of what actually happened. Surface the command renames prominen
 Renamed on disk:
   - project/  →  magrathea/
   - magrathea/information.md  →  magrathea/core.md
+
+Created on disk:
+  - magrathea/readme.md          (or "(skipped — already existed)" if applicable)
+  - magrathea/example-state.md   (or "(skipped — already existed)" if applicable)
 
 Command renames (your muscle memory will fight this for a day or two):
   - /issue          →  /pickup

@@ -94,6 +94,7 @@ Walks every `state.md` and regenerates `magrathea/board.md` from scratch. Run th
 your-project/
 │
 ├── magrathea/                       ← the planet
+│   ├── readme.md                    ← a playful tour of the directory, for humans browsing
 │   ├── core.md                      ← molten core: knowledge shared by every continent
 │   │                                  (patterns, decisions, lessons learned)
 │   ├── board.md                     ← fast kanban index — what /board reads
@@ -103,14 +104,20 @@ your-project/
 │       ├── research/                ← what you investigated and found
 │       └── state.md                 ← "where I left off" scratchpad
 │
-└── prompts/                         ← the prompt files (this repo)
-    ├── magrathea.md
-    ├── pickup.md
-    ├── capture.md
-    ├── board.md
-    ├── board-redraw.md
-    ├── ask.md
-    └── retro.md
+├── prompts/                         ← the prompt files (this repo)
+│   ├── magrathea.md
+│   ├── pickup.md
+│   ├── capture.md
+│   ├── board.md
+│   ├── board-redraw.md
+│   ├── ask.md
+│   └── retro.md
+│
+└── templates/                       ← starter files copied into magrathea/ on install
+    ├── readme.md                    ← copied as magrathea/readme.md
+    ├── board.md                     ← copied as magrathea/board.md
+    ├── core.md                      ← copied as magrathea/core.md
+    └── state.md                     ← copied as magrathea/example-state.md (reference shape only)
 ```
 
 Where you install the prompts depends on your agent — see [Installation](#installation) below.
@@ -174,30 +181,20 @@ The agent moves the card to `Complete` and updates `magrathea/core.md` with anyt
    mkdir -p .opencode/commands && cp prompts/*.md .opencode/commands/
    ```
 
-2. **Create the planet** at your project root (folder + empty kanban index):
+2. **Create the planet** at your project root by copying the four starter templates that ship with this repo:
 
    ```bash
-   mkdir magrathea && cat > magrathea/board.md <<'EOF'
-   # Board
-
-   > Magrathea kanban board. Regenerate with `/board-redraw` if you suspect it's out of sync.
-
-   ## Closed
-   (none)
-
-   ## Complete
-   (none)
-
-   ## In Review
-   (none)
-
-   ## Todo
-   (none)
-
-   ## In Progress
-   (none)
-   EOF
+   mkdir magrathea
+   cp templates/readme.md  magrathea/readme.md
+   cp templates/board.md   magrathea/board.md
+   cp templates/core.md    magrathea/core.md
+   cp templates/state.md   magrathea/example-state.md
    ```
+
+   - `readme.md` — a playful tour of the directory for humans browsing the project. Not load-bearing, just polite.
+   - `board.md` — the empty kanban index. `/board` reads it; `/board-redraw` rewrites it.
+   - `core.md` — the molten core, pre-stubbed with the section headings (`Decisions`, `Patterns`, `Constraints`, `Lessons Learned`, `Glossary`) that the prompts and `/ask` already know how to navigate.
+   - `example-state.md` — a populated reference showing what a healthy `state.md` looks like once work is underway. Copy it into `magrathea/` so humans and agents can see the canonical shape without leaving the planet. `/board-redraw` ignores it (regex matches `^\d{3}-` only).
 
 3. **That's it.** Start your agent and invoke `/pickup` to start, or `/capture` to file a new issue.
 
@@ -227,7 +224,7 @@ The prompts are fully generic. The only project-specific thing is your agent's c
 
 **Tell your agent where the knowledge lives.** The whole point of Magrathea is that project knowledge lives in the project itself — but the agent has to know to look there. Each install guide has a recommended snippet to drop into your context file (`CLAUDE.md`, `AGENTS.md`, etc.) that points the agent at `magrathea/core.md`, `magrathea/board.md`, and the issue directories. Copy it in once; everything afterward is easier.
 
-The `magrathea/core.md` file is where accumulated project knowledge lives. Start it empty; it grows as you work.
+The `magrathea/core.md` file is where accumulated project knowledge lives. The starter template stubs out the section headings (`Decisions`, `Patterns`, `Constraints`, `Lessons Learned`, `Glossary`) — fill them in as issues close.
 
 ---
 

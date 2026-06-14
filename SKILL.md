@@ -43,9 +43,10 @@ Status moves are explicit acts. `/board` always shows the current board.
 
 ```
 magrathea/
-  core.md                 ← molten core: shared knowledge across all issues (auto-created)
-  board.md                ← kanban index: what /board reads (run /board-redraw to (re)generate)
-  example-issue/          ← optional reference template
+  readme.md               ← playful tour of the directory for humans browsing (from templates/readme.md)
+  core.md                 ← molten core: shared knowledge across all issues (from templates/core.md, pre-stubbed)
+  board.md                ← kanban index: what /board reads (from templates/board.md; /board-redraw rewrites it)
+  example-state.md        ← reference shape of a populated state.md (from templates/state.md; /board-redraw ignores it)
   001-feat-something/
     planning/             ← design docs, approach notes
     research/             ← investigation findings, code analysis
@@ -54,6 +55,8 @@ magrathea/
     ...
   retro/                  ← retrospective notes (auto-created on first retro)
 ```
+
+All four starter files live in this repo's `templates/` directory and are copied into `magrathea/` on install. `readme.md`, `board.md`, and `core.md` are the files the prompts actually read. `example-state.md` is a populated reference — no prompt opens it, but installing it into the planet means humans and curious agents can see the canonical `state.md` shape without leaving `magrathea/`. Each `/capture` writes fresh `state.md` files from an inline template, not by copying this one.
 
 ## Installation
 

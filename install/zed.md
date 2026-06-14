@@ -11,29 +11,22 @@ Zed has a built-in Prompt Library accessible from the AI panel. You can add the 
 3. Create a new prompt for each file in `prompts/`:
    - Name: `magrathea`, `pickup`, `capture`, `board`, `board-redraw`, `ask`, `retro`
    - Body: paste the contents of the corresponding `.md` file
-4. Create the planet at your project root (folder + empty kanban index):
+4. Create the planet at your project root by copying the four starter templates that ship with this repo:
    ```bash
-   mkdir magrathea && cat > magrathea/board.md <<'EOF'
-   # Board
-
-   > Magrathea kanban board. Regenerate with `/board-redraw` if you suspect it's out of sync.
-
-   ## Closed
-   (none)
-
-   ## Complete
-   (none)
-
-   ## In Review
-   (none)
-
-   ## Todo
-   (none)
-
-   ## In Progress
-   (none)
-   EOF
+   mkdir magrathea
+   cp /path/to/templates/readme.md  magrathea/readme.md
+   cp /path/to/templates/board.md   magrathea/board.md
+   cp /path/to/templates/core.md    magrathea/core.md
+   cp /path/to/templates/state.md   magrathea/example-state.md
    ```
+
+   What each file is for:
+   - `readme.md` — a playful, Hitchhiker's-themed tour of the directory for humans browsing the project.
+   - `board.md` — the empty kanban index (`/board` reads this; `/board-redraw` rewrites it).
+   - `core.md` — the molten core, pre-stubbed with the section headings (`Decisions`, `Patterns`, `Constraints`, `Lessons Learned`, `Glossary`) that the prompts and `/ask` already know how to navigate.
+   - `example-state.md` — a populated reference showing what a healthy `state.md` looks like once work is underway. **Copy it into `magrathea/` even though no prompt opens it** — having it in-tree means humans (and curious agents) can see the canonical shape without leaving the planet. The prompts themselves create real `state.md` files from an inline template, so this one is purely a reference; the `^\d{3}-` regex in `/board-redraw` ignores it automatically.
+
+   If you don't have the source repo handy, paste the canonical versions manually; copying the templates is just faster.
 5. Invoke via `/prompt pickup` in the AI panel
 
 ## Option B: Inline paste
