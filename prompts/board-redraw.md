@@ -16,7 +16,7 @@ This command is idempotent and safe to re-run.
 
 1. **Check `magrathea/` exists.** If not, output: "No planet yet. Use `/capture` to file your first issue." and stop.
 
-2. **List issue directories** in `magrathea/` matching `^\d{3}-`. The pattern already excludes `readme.md`, `core.md`, `board.md`, `example-state.md`, `MEMORY.md`, and `retro/`.
+2. **List issue directories** in `magrathea/` matching `^\d{3}-*`. The pattern already excludes `readme.md`, `core.md`, `board.md`, `example-state.md`, `MEMORY.md`, and `retro/`.
 
 3. **For each issue directory**, read the first 6 lines of `state.md` and extract:
    - **Title** — from the H1 (`# {Title}`)
