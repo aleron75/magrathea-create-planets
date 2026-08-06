@@ -86,6 +86,12 @@ Reads every issue and previous retro, surfaces patterns and open threads, then f
 
 Walks every `state.md` and regenerates `magrathea/board.md` from scratch. Run this on first setup, after a migration, or any time `/board` looks out of sync with what's actually in your issue directories. The other commands will tell you when you need it.
 
+### `magrathea-export`
+
+> "This doesn't belong on this planet. Let's send it somewhere it does."
+
+Packages a single issue into one self-contained, portable Markdown file that another Magrathea instance — a different repo, a different project, even a different organisation — can pick up with zero missing context. It inlines everything the issue depends on (relevant bits of `core.md`, facts borrowed from sibling issues) as plain prose, strips issue numbers, `magrathea/` paths, wikilinks, and personal names, and ships its own "How to Import This" instructions at the bottom of the file — so the document travels alone and still explains itself on arrival. The source issue stays exactly where it was; exporting doesn't close or move it.
+
 ---
 
 ## What Lives Where
@@ -111,7 +117,8 @@ your-project/
 │   ├── board.md
 │   ├── board-redraw.md
 │   ├── ask.md
-│   └── retro.md
+│   ├── retro.md
+│   └── magrathea-export.md
 │
 └── templates/                       ← starter files copied into magrathea/ on install
     ├── readme.md                    ← copied as magrathea/readme.md

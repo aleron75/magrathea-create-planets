@@ -42,6 +42,7 @@ OpenCode discovers custom commands in `.opencode/commands/` at the project root 
 | `board-redraw.md` | `/board-redraw` |
 | `ask.md` | `/ask` or `/ask <question>` |
 | `retro.md` | `/retro` |
+| `magrathea-export.md` | `/magrathea-export` or `/magrathea-export 5` or `/magrathea-export feat-login` |
 
 ## Argument passing
 
