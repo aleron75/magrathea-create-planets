@@ -14,6 +14,7 @@ Magrathea is a kanban-driven workflow that teaches AI coding agents how to manag
 | `ask` | `prompts/ask.md` | Ask Magrathea a question. Answers from `core.md` and retros, with citations. |
 | `retro` | `prompts/retro.md` | Run an open retrospective across all issues |
 | `magrathea-export [name-or-number]` | `prompts/magrathea-export.md` | Export an issue as a self-contained, sanitized document another Magrathea instance can import |
+| `babelfish [task description or file]` | `prompts/babelfish.md` | Write (or clean up) any external comms — email, handover, report — for a reader outside this planet. Give it a task ("email to the researcher about the current process") and it drafts and sanitizes; give it a file and it just sanitizes; give it nothing and it activates the same guidelines as a standing habit for the rest of the session |
 | `migrate` | `prompts/migrate.md` | One-off: upgrade an existing `project/` layout to Magrathea. Delete after running. |
 
 ## How Agents Use This

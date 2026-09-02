@@ -92,6 +92,12 @@ Walks every `state.md` and regenerates `magrathea/board.md` from scratch. Run th
 
 Packages a single issue into one self-contained, portable Markdown file that another Magrathea instance — a different repo, a different project, even a different organisation — can pick up with zero missing context. It inlines everything the issue depends on (relevant bits of `core.md`, facts borrowed from sibling issues) as plain prose, strips issue numbers, `magrathea/` paths, wikilinks, and personal names, and ships its own "How to Import This" instructions at the bottom of the file — so the document travels alone and still explains itself on arrival. The source issue stays exactly where it was; exporting doesn't close or move it.
 
+### `babelfish`
+
+> "Stick it in your ear. It's a Babel fish — you'll understand, and be understood, in any tongue."
+
+Give it a task — `/babelfish a handover to Ford Prefect about this issue`, `/babelfish email to the researcher about the current process`, `/babelfish a report on the work done on the XSS issue` — and it pulls the recipient, platform, subject, and issue context straight out of that sentence, reads what it needs from the relevant issue, and writes the first draft. Hand it a file or an existing draft instead and it skips straight to the same check every draft gets either way: does every reference in this document actually go somewhere the reader can open? Run it bare — `/babelfish`, no arguments — and it doesn't demand a draft: it asks the naming question once, confirms the guidelines are active, and lets you keep working the issue that's already loaded, applying the same reachability/filing rules to whatever gets written from then on. Asks up front whether real names (yours, colleagues', the company's) should stay in or be genericized to roles — that call depends on who's reading, not on anything the prompt can infer from the draft. It fixes what's local-only: `magrathea/` paths, issue numbers, wikilinks, confirmation-process narration nobody outside needs, and links to private repos the reader can't reach (replaced with an inlined snippet or a flagged attachment). A public-repo reference stays a link. Reads the planet's own tone-guide section in `core.md` if one exists, but doesn't assume any house style of its own. Files the finished correspondence into the working issue's `research/{platform}/` automatically when one is already active, same convention as email records; when nothing's active it drafts anyway and figures out the right issue afterward instead of blocking on it.
+
 ---
 
 ## What Lives Where
@@ -118,7 +124,8 @@ your-project/
 │   ├── board-redraw.md
 │   ├── ask.md
 │   ├── retro.md
-│   └── magrathea-export.md
+│   ├── magrathea-export.md
+│   └── babelfish.md
 │
 └── templates/                       ← starter files copied into magrathea/ on install
     ├── readme.md                    ← copied as magrathea/readme.md

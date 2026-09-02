@@ -43,6 +43,7 @@ Claude Code discovers custom commands in `.claude/commands/` at the project root
 | `ask.md` | `/ask` or `/ask <question>` |
 | `retro.md` | `/retro` |
 | `magrathea-export.md` | `/magrathea-export` or `/magrathea-export 5` or `/magrathea-export feat-login` |
+| `babelfish.md` | `/babelfish a handover to Ford Prefect about this issue` or `/babelfish path/to/draft.md` |
 
 ## Argument passing
 

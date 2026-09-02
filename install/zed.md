@@ -9,7 +9,7 @@ Zed has a built-in Prompt Library accessible from the AI panel. You can add the 
 1. Open the AI panel in Zed
 2. Open the Prompt Library (click the book icon or use the command palette)
 3. Create a new prompt for each file in `prompts/`:
-   - Name: `magrathea`, `pickup`, `capture`, `board`, `board-redraw`, `ask`, `retro`, `magrathea-export`
+   - Name: `magrathea`, `pickup`, `capture`, `board`, `board-redraw`, `ask`, `retro`, `magrathea-export`, `babelfish`
    - Body: paste the contents of the corresponding `.md` file
 4. Create the planet at your project root by copying the four starter templates that ship with this repo:
    ```bash
@@ -62,4 +62,4 @@ Without this block the prompts still work, but the agent won't think to read `co
 
 ## Note
 
-For a fully integrated slash command experience in Zed, a Zed extension would need to be built. This is outside the scope of this workflow, but the prompt files in `prompts/` contain everything needed to implement one (the eight commands: `magrathea`, `pickup`, `capture`, `board`, `board-redraw`, `ask`, `retro`, `magrathea-export`).
+For a fully integrated slash command experience in Zed, a Zed extension would need to be built. This is outside the scope of this workflow, but the prompt files in `prompts/` contain everything needed to implement one (the nine commands: `magrathea`, `pickup`, `capture`, `board`, `board-redraw`, `ask`, `retro`, `magrathea-export`, `babelfish`).
